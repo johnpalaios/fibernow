@@ -1,6 +1,7 @@
 package eu.advantage.fibernow.dto;
 
 
+import eu.advantage.fibernow.model.Status;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,4 +17,5 @@ public class AdminDto {
     private Set<String> phoneNumber;
     private String username;
     private String password;
+    private Status status;
 }

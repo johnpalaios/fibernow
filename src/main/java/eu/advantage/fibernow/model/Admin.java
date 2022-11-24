@@ -18,4 +18,5 @@ public class Admin {
     private Set<String> phoneNumber;
     private String username;
     private String password;
+    private Status status;
 }
