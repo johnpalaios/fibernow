@@ -1,16 +1,14 @@
-package eu.advantage.fibernow.model;
+package eu.advantage.fibernow.dto;
 
 
 import lombok.Builder;
 import lombok.Data;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
 @Builder
-public class Admin {
+public class AdminDto {
     private Long id;
     private String name;
     private String surname;
