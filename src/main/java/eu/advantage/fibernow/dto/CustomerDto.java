@@ -1,14 +1,14 @@
-package eu.advantage.fibernow.model;
+package eu.advantage.fibernow.dto;
 
+import eu.advantage.fibernow.model.Status;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.Set;
 
 @Data
 @Builder
-public class Customer {
+public class CustomerDto {
     private Long id;
     private String tin;
     private String firstname;
