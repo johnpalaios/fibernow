@@ -1,7 +1,7 @@
 package eu.advantage.fibernow.dto;
 
 
-import eu.advantage.fibernow.model.Status;
+import eu.advantage.fibernow.model.enums.Status;
 import lombok.Builder;
 import lombok.Data;
 
