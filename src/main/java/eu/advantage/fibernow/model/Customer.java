@@ -1,22 +1,56 @@
 package eu.advantage.fibernow.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import eu.advantage.fibernow.model.enums.Status;
+import lombok.*;
+import org.hibernate.Hibernate;
 
+import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
+@Entity(name = "CUSTOMER")
+@Table(name = "Customer",
+        indexes = @Index(
+                name = "idx_customer_tin",
+                columnList = "tin",
+                unique = true
+        )
+)
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
     private String tin;
-    private String firstname;
-    private String lastname;
+    private String name;
+    private String surname;
     private String address;
+    @ElementCollection
     private Set<String> phoneNumber;
+    @ElementCollection
     private Set<String> email;
     private String username;
     private String password;
     private Status status;
+    @OneToMany(mappedBy = "customer")
+    @ToString.Exclude
+    private Set<Ticket> tickets;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Customer customer = (Customer) o;
+        return id != null && Objects.equals(id, customer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

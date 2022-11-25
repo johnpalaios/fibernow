@@ -1,11 +1,10 @@
 package eu.advantage.fibernow.model;
 
 
+import eu.advantage.fibernow.model.enums.Status;
 import lombok.Builder;
 import lombok.Data;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data

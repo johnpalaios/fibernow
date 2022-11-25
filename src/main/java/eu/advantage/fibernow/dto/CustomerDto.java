@@ -1,6 +1,6 @@
 package eu.advantage.fibernow.dto;
 
-import eu.advantage.fibernow.model.Status;
+import eu.advantage.fibernow.model.enums.Status;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,8 +11,8 @@ import java.util.Set;
 public class CustomerDto {
     private Long id;
     private String tin;
-    private String firstname;
-    private String lastname;
+    private String name;
+    private String surname;
     private String address;
     private Set<String> phoneNumber;
     private Set<String> email;
