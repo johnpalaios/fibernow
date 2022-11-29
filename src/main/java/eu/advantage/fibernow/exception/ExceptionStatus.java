@@ -2,7 +2,8 @@ package eu.advantage.fibernow.exception;
 
 public enum ExceptionStatus {
 
-    BZ_ERROR_0001("Invalid Input [%s]", 1);
+    BZ_ERROR_0001("Invalid Input [%s]", 1),
+    BZ_ERROR_1001("Customer [id=%s] does not exist.", 1);
 
     String message;
 

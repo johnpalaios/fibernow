@@ -4,8 +4,8 @@ import eu.advantage.fibernow.dto.CustomerDto;
 import eu.advantage.fibernow.model.Customer;
 
 public interface CustomerService {
-    Customer saveCustomer(CustomerDto dto);
-    Customer findCustomer(Long id);
-    Customer searchCustomer(String email, String tid);
-    Customer deleteCustomer(CustomerDto dto);
+    CustomerDto saveCustomer(CustomerDto dto);
+    CustomerDto findCustomer(Long id);
+    CustomerDto searchCustomer(String email, String tid);
+    CustomerDto deleteCustomer(Long id);
 }
