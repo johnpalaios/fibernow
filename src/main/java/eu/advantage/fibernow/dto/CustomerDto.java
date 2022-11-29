@@ -4,11 +4,12 @@ import eu.advantage.fibernow.model.enums.Status;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @Builder
-public class CustomerDto {
+public class CustomerDto implements Serializable {
     private Long id;
     private String tin;
     private String name;
