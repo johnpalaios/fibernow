@@ -2,12 +2,18 @@ package eu.advantage.fibernow.model;
 
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.model.enums.TicketType;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
 @Entity
 public class Ticket {
     @Id
