@@ -66,8 +66,6 @@ public class TicketServiceImpl implements TicketService{
                 throw new BusinessException(BZ_ERROR_1001, ticket.getId());
             }
 
-            //Check if the Customer has open Tickets
-
             //Soft Delete
             found.setStatus(TicketStatus.DELETED);
             ticketRepository.update(found);
