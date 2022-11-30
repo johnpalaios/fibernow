@@ -9,6 +9,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 @Path("ticket")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,11 +26,21 @@ public class TicketResource {
             return successResponse(service.findTicket(id));
         }
 
-        /*@GET
-        public Response search(@QueryParam("id") Long customerId, @QueryParam("startDate") LocalDateTime startDate,
-                               @QueryParam("endDate") LocalDate endDate) {
-            return successResponse(service.searchTickets(customerId, startDate, endDate));
-        }*/
+        @GET
+        public Response search(@QueryParam("id") Long customerId, @QueryParam("startDate") String startDateString,
+                               @QueryParam("endDate") String endDateString) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = null;
+            LocalDate endDate = null;
+            if(startDateString != null) {
+                startDate = LocalDate.parse(startDateString, formatter);
+            }
+            if(endDateString != null) {
+                endDate = LocalDate.parse(endDateString, formatter);
+            }
+            List<TicketDto> ticketDtoList = service.searchTickets(customerId, startDate, endDate);
+            return successResponse(ticketDtoList);
+        }
 
         @POST
         public Response save(TicketDto ticketDto) {

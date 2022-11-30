@@ -7,6 +7,7 @@ import eu.advantage.fibernow.exception.BusinessException;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.repository.ITicketRepository;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.repository.ICustomerRepository;
@@ -20,6 +21,7 @@ import static eu.advantage.fibernow.exception.ExceptionStatus.*;
 import static eu.advantage.fibernow.util.JPAHelper.*;
 import static eu.advantage.fibernow.util.JPAHelper.closeEntityManager;
 
+@Stateless
 public class TicketServiceImpl implements TicketService{
 
     @Inject
@@ -34,8 +36,7 @@ public class TicketServiceImpl implements TicketService{
         try {
             if (ticket.getId() == null) {
                 ticketRepository.create(ticket);
-            }
-            else {
+            } else {
                 Ticket found = ticketRepository.findById(ticket.getId());
                 if (found == null) {
                     throw new BusinessException(BZ_ERROR_1001, ticket.getId());
@@ -52,7 +53,6 @@ public class TicketServiceImpl implements TicketService{
         return DomainToDtoConverter.toDto(ticket);
     }
 
-    //if findTicket returns null -- the ticket with this ticketId doesn't exist
     @Override
     public TicketDto findTicket(Long ticketId) {
         beginTransaction();
@@ -60,7 +60,7 @@ public class TicketServiceImpl implements TicketService{
         try {
             ticket = ticketRepository.findById(ticketId);
             if (ticket == null) {
-                throw new BusinessException(BZ_ERROR_1011, ticketId);
+                throw new BusinessException(BZ_ERROR_2001, ticketId);
             }
             commitTransaction();
         } catch (Exception e) {
@@ -105,14 +105,15 @@ public class TicketServiceImpl implements TicketService{
             criteriaMap.put("receivedDate", startDate);
             return ticketRepository.findByCriteria(criteriaMap);
         } else {
-            throw new BusinessException(BZ_ERROR_1013);
+            throw new BusinessException(BZ_ERROR_2003);
         }
     }
+
     private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate, Set<Ticket> ticketSet) {
         List<Ticket> ticketList = new ArrayList<>();
         if(startDate != null && endDate != null) {
             if(endDate.isBefore(startDate)) {
-                throw new BusinessException(BZ_ERROR_1012, startDate.toString(), endDate.toString());
+                throw new BusinessException(BZ_ERROR_2002, startDate.toString(), endDate.toString());
             }
             for(Ticket ticket : ticketSet) {
                 LocalDate date = ticket.getReceivedDate();
@@ -134,6 +135,7 @@ public class TicketServiceImpl implements TicketService{
     private <T extends Collection<Ticket>> List<TicketDto> transformTicketCollectionToTicketDtoList(T ticketCollection) {
         return ticketCollection.stream().map(DomainToDtoConverter::toDto).collect(Collectors.toList());
     }
+
     @Override
     public TicketDto deleteTicket(TicketDto dto) {
         Ticket ticket = DtoToDomainConverter.toDomain(dto);
