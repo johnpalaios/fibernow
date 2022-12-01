@@ -4,7 +4,6 @@ import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.model.enums.TicketType;
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,9 +14,11 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Entity
+@Entity(name="TICKET")
+@Table(name="Ticket")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +27,6 @@ public class Ticket {
     @ManyToOne()
     @JoinColumn(name = "id", nullable = false)
     private Customer customer;
-    @CreationTimestamp
-    @Temporal(TemporalType.DATE)
     @Column(name = "receivedDate")
     private LocalDate receivedDate; // the date the ticket was received
     @Column(name = "scheduledDatetime")
@@ -43,6 +42,10 @@ public class Ticket {
     @Column(name = "description")
     private String description;
 
+    @PrePersist
+    protected void onCreate() {
+        receivedDate = LocalDate.now();
+    }
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
