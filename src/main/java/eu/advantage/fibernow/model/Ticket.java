@@ -24,8 +24,8 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    @ManyToOne()
-    @JoinColumn(name = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cid", nullable = false)
     private Customer customer;
     @Column(name = "receivedDate")
     private LocalDate receivedDate; // the date the ticket was received
@@ -42,10 +42,6 @@ public class Ticket {
     @Column(name = "description")
     private String description;
 
-    @PrePersist
-    protected void onCreate() {
-        receivedDate = LocalDate.now();
-    }
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;

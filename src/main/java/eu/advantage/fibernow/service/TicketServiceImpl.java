@@ -35,6 +35,12 @@ public class TicketServiceImpl implements TicketService{
         beginTransaction();
         try {
             if (ticket.getId() == null) {
+                if(ticket.getReceivedDate() == null) {
+                    ticket.setReceivedDate(LocalDate.now());
+                }
+                if(ticket.getStatus() == null) {
+                    ticket.setStatus(TicketStatus.STANDBY);
+                }
                 ticketRepository.create(ticket);
             } else {
                 Ticket found = ticketRepository.findById(ticket.getId());
@@ -91,6 +97,7 @@ public class TicketServiceImpl implements TicketService{
             commitTransaction();
         } catch(Exception e) {
             rollbackTransaction();
+            e.getMessage();
         } finally {
             closeEntityManager();
         }

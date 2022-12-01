@@ -25,7 +25,7 @@ import java.util.Set;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "cid")
     private Long id;
     private String tin;
     private String name;
