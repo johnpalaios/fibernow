@@ -10,6 +10,9 @@ import java.util.Set;
 @Data
 @Builder
 public class CustomerDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Long id;
     private String tin;
     private String name;
@@ -20,4 +23,5 @@ public class CustomerDto implements Serializable {
     private String username;
     private String password;
     private Status status;
+    private Set<TicketDto> tickets;
 }

@@ -1,7 +1,6 @@
 package eu.advantage.fibernow.resource;
 
 import eu.advantage.fibernow.dto.CustomerDto;
-import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.service.CustomerService;
 import eu.advantage.fibernow.util.rest.ResponseUtils;
 import jakarta.inject.Inject;

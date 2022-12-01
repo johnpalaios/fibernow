@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class TicketDto implements Serializable {
+public class TicketDto  implements Serializable {
     private Long id;
     private CustomerDto customerDto;
     private LocalDate receivedDate; // the date the ticket was received
