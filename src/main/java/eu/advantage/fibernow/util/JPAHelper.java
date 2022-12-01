@@ -1,8 +1,8 @@
 package eu.advantage.fibernow.util;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public final class JPAHelper {
 
@@ -11,7 +11,7 @@ public final class JPAHelper {
 
     private JPAHelper(){}
 
-    public static EntityManagerFactory getEntityMangerFactory() {
+    public static EntityManagerFactory getEntityManagerFactory() {
         if (emf == null || !emf.isOpen()) {
             emf = Persistence.createEntityManagerFactory("fibernowPU");
         }
@@ -21,7 +21,7 @@ public final class JPAHelper {
     public static EntityManager getEntityManager() {
         EntityManager em = threadLocal.get();
         if (em == null || !em.isOpen()) {
-            em = getEntityMangerFactory().createEntityManager();
+            em = getEntityManagerFactory().createEntityManager();
             threadLocal.set(em);
         }
         return em;

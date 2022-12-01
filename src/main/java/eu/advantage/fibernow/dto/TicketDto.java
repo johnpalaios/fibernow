@@ -5,13 +5,14 @@ import eu.advantage.fibernow.model.enums.TicketType;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class TicketDto {
+public class TicketDto  implements Serializable {
     private Long id;
     private CustomerDto customerDto;
     private LocalDate receivedDate; // the date the ticket was received
