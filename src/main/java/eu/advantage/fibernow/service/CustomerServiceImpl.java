@@ -1,8 +1,6 @@
 package eu.advantage.fibernow.service;
 
-import eu.advantage.fibernow.converter.DomainToDtoConverter;
-import eu.advantage.fibernow.converter.DtoToDomainConverter;
-import eu.advantage.fibernow.dto.CustomerDto;
+
 import eu.advantage.fibernow.exception.BusinessException;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.enums.Status;
@@ -20,8 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
     private ICustomerRepository customerRepository;
 
     @Override
-    public CustomerDto saveCustomer(CustomerDto dto) {
-        Customer customer = DtoToDomainConverter.toDomain(dto);
+    public Customer saveCustomer(Customer customer) {
         beginTransaction();
         try {
             if (customer.getId() == null) {
@@ -41,11 +38,11 @@ public class CustomerServiceImpl implements CustomerService {
         } finally {
             closeEntityManager();
         }
-        return DomainToDtoConverter.toDto(customer);
+        return customer;
     }
 
     @Override
-    public CustomerDto findCustomer(Long id) {
+    public Customer findCustomer(Long id) {
         beginTransaction();
         Customer found = null;
         try {
@@ -60,11 +57,11 @@ public class CustomerServiceImpl implements CustomerService {
         } finally {
             closeEntityManager();
         }
-        return DomainToDtoConverter.toDto(found);
+        return found;
     }
 
     @Override
-    public CustomerDto searchCustomer(String email, String tid) {
+    public Customer searchCustomer(String email, String tid) {
         beginTransaction();
         try {
             commitTransaction();
@@ -78,7 +75,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto deleteCustomer(Long id) {
+    public Customer deleteCustomer(Long id) {
         beginTransaction();
         Customer found = null;
         try {
@@ -99,6 +96,6 @@ public class CustomerServiceImpl implements CustomerService {
         } finally {
             closeEntityManager();
         }
-        return DomainToDtoConverter.toDto(found);
+        return found;
     }
 }

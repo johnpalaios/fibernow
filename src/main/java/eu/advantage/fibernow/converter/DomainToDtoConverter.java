@@ -5,6 +5,10 @@ import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class DomainToDtoConverter {
     public static CustomerDto toDto(Customer customer) {
         if (customer == null) {
@@ -40,4 +44,9 @@ public class DomainToDtoConverter {
                 .description(ticket.getDescription())
                 .build();
     }
+
+    public static <T extends Collection<Ticket>> List<TicketDto> ticketCollectionToTicketDtoList(T ticketCollection) {
+        return ticketCollection.stream().map(DomainToDtoConverter::toDto).collect(Collectors.toList());
+    }
+
 }

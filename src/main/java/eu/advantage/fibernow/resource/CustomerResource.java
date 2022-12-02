@@ -1,6 +1,9 @@
 package eu.advantage.fibernow.resource;
 
+import eu.advantage.fibernow.converter.DomainToDtoConverter;
+import eu.advantage.fibernow.converter.DtoToDomainConverter;
 import eu.advantage.fibernow.dto.CustomerDto;
+import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.service.CustomerService;
 import eu.advantage.fibernow.util.rest.ResponseUtils;
 import jakarta.inject.Inject;
@@ -20,29 +23,37 @@ public class CustomerResource {
     @GET
     @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
-        return ResponseUtils.successResponse(service.findCustomer(id));
+        Customer customer = service.findCustomer(id);
+        CustomerDto customerDto = DomainToDtoConverter.toDto(customer);
+        return ResponseUtils.successResponse(customerDto);
     }
 
     @GET
     public Response search(@QueryParam("tin") String tin, @QueryParam("email") String email) {
-        return ResponseUtils.successResponse(service.searchCustomer(tin, email));
+        Customer customer = service.searchCustomer(tin, email);
+        CustomerDto customerDto = DomainToDtoConverter.toDto(customer);
+        return ResponseUtils.successResponse(customerDto);
     }
 
     @POST
     public Response save(CustomerDto customerDto) {
-        CustomerDto result = service.saveCustomer(customerDto);
+        Customer customer = DtoToDomainConverter.toDomain(customerDto);
+        Customer resultDomain = service.saveCustomer(customer);
+        CustomerDto resultDto = DomainToDtoConverter.toDto(resultDomain);
         return Response.created(UriBuilder
                 .fromResource(CustomerResource.class)
-                .path("/" + result.getId())
+                .path("/" + resultDto.getId())
                 .build()
         )
-                .entity(ResponseUtils.toJsonString(result))
+                .entity(ResponseUtils.toJsonString(resultDto))
                 .build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        return ResponseUtils.successResponse(service.deleteCustomer(id));
+        Customer customer = service.deleteCustomer(id);
+        CustomerDto customerDto = DomainToDtoConverter.toDto(customer);
+        return ResponseUtils.successResponse(customerDto);
     }
 }

@@ -1,6 +1,9 @@
 package eu.advantage.fibernow.resource;
 
+import eu.advantage.fibernow.converter.DomainToDtoConverter;
+import eu.advantage.fibernow.converter.DtoToDomainConverter;
 import eu.advantage.fibernow.dto.TicketDto;
+import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.service.TicketService;
 import static eu.advantage.fibernow.util.rest.ResponseUtils.*;
 import jakarta.inject.Inject;
@@ -38,27 +41,32 @@ public class TicketResource {
             if(endDateString != null) {
                 endDate = LocalDate.parse(endDateString, formatter);
             }
-            List<TicketDto> ticketDtoList = service.searchTickets(customerId, startDate, endDate);
-            return successResponse(ticketDtoList);
+            List<Ticket> resultDomainList = service.searchTickets(customerId, startDate, endDate);
+            List<TicketDto> resultDtoList = DomainToDtoConverter.ticketCollectionToTicketDtoList(resultDomainList);
+            return successResponse(resultDtoList);
         }
 
         @POST
         public Response save(TicketDto ticketDto) {
-            TicketDto result = service.saveTicket(ticketDto);
+            Ticket ticket = DtoToDomainConverter.toDomain(ticketDto);
+            Ticket resultDomain = service.saveTicket(ticket);
+            TicketDto resultDto = DomainToDtoConverter.toDto(resultDomain);
             return Response.created(UriBuilder
                             .fromResource(eu.advantage.fibernow.resource.TicketResource.class)
-                            .path("/" + result.getId())
+                            .path("/" + resultDto.getId())
                             .build()
                     )
-                    .entity(toJsonString(result))
+                    .entity(toJsonString(resultDto))
                     .build();
         }
 
         @DELETE
         @Path("/{id}")
         public Response delete(@PathParam("id") Long id) {
-            TicketDto ticketDto = service.findTicket(id);
-            return successResponse(service.deleteTicket(ticketDto));
+            Ticket ticket = service.findTicket(id);
+            Ticket resultDomain = service.deleteTicket(ticket);
+            TicketDto resultDto = DomainToDtoConverter.toDto(resultDomain);
+            return successResponse(resultDto);
         }
 
 }

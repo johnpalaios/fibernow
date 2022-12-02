@@ -1,8 +1,5 @@
 package eu.advantage.fibernow.service;
 
-import eu.advantage.fibernow.converter.DomainToDtoConverter;
-import eu.advantage.fibernow.converter.DtoToDomainConverter;
-import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.exception.BusinessException;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.TicketStatus;
@@ -10,12 +7,10 @@ import eu.advantage.fibernow.repository.ITicketRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import eu.advantage.fibernow.model.Customer;
-import eu.advantage.fibernow.repository.ICustomerRepository;
 
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static eu.advantage.fibernow.exception.ExceptionStatus.*;
 import static eu.advantage.fibernow.util.JPAHelper.*;
@@ -27,11 +22,10 @@ public class TicketServiceImpl implements TicketService{
     @Inject
     private ITicketRepository ticketRepository;
     @Inject
-    private ICustomerRepository customerRepository;
+    private CustomerService customerService;
 
     @Override
-    public TicketDto saveTicket(TicketDto dto) {
-        Ticket ticket = DtoToDomainConverter.toDomain(dto);
+    public Ticket saveTicket(Ticket ticket) {
         beginTransaction();
         try {
             if (ticket.getId() == null) {
@@ -56,11 +50,11 @@ public class TicketServiceImpl implements TicketService{
         } finally {
             closeEntityManager();
         }
-        return DomainToDtoConverter.toDto(ticket);
+        return ticket;
     }
 
     @Override
-    public TicketDto findTicket(Long ticketId) {
+    public Ticket findTicket(Long ticketId) {
         beginTransaction();
         Ticket ticket = null;
         try {
@@ -75,16 +69,16 @@ public class TicketServiceImpl implements TicketService{
         } finally {
             closeEntityManager();
         }
-        return DomainToDtoConverter.toDto(ticket);
+        return ticket;
     }
 
     @Override
-    public List<TicketDto> searchTickets(Long customerId, LocalDate startDate, LocalDate endDate) {
+    public List<Ticket> searchTickets(Long customerId, LocalDate startDate, LocalDate endDate) {
         List<Ticket> ticketList = new ArrayList<>();
         beginTransaction();
         try {
             if(customerId != null) {
-                Customer customer = customerRepository.findById(customerId);
+                Customer customer = customerService.findCustomer(customerId);
                 Set<Ticket> ticketSet = customer.getTickets();
                 if(startDate != null) {
                     ticketList = filterByDates(startDate, endDate, ticketSet);
@@ -97,11 +91,11 @@ public class TicketServiceImpl implements TicketService{
             commitTransaction();
         } catch(Exception e) {
             rollbackTransaction();
-            e.getMessage();
+//            e.getMessage();
         } finally {
             closeEntityManager();
         }
-        return transformTicketCollectionToTicketDtoList(ticketList);
+        return ticketList;
     }
 
     private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate) {
@@ -139,21 +133,16 @@ public class TicketServiceImpl implements TicketService{
         return ticketList;
     }
 
-    private <T extends Collection<Ticket>> List<TicketDto> transformTicketCollectionToTicketDtoList(T ticketCollection) {
-        return ticketCollection.stream().map(DomainToDtoConverter::toDto).collect(Collectors.toList());
-    }
 
     @Override
-    public TicketDto deleteTicket(TicketDto dto) {
-        Ticket ticket = DtoToDomainConverter.toDomain(dto);
+    public Ticket deleteTicket(Ticket ticket) {
         beginTransaction();
-        Ticket found = null;
+        Ticket found;
         try {
             found = ticketRepository.findById(ticket.getId());
             if (found == null) {
                 throw new BusinessException(BZ_ERROR_1001, ticket.getId());
             }
-
             //Soft Delete
             found.setStatus(TicketStatus.DELETED);
             ticketRepository.update(found);
@@ -164,6 +153,6 @@ public class TicketServiceImpl implements TicketService{
         } finally {
             closeEntityManager();
         }
-        return DomainToDtoConverter.toDto(found);
+        return ticket;
     }
 }
