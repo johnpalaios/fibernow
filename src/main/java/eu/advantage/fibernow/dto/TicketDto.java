@@ -2,16 +2,18 @@ package eu.advantage.fibernow.dto;
 
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.model.enums.TicketType;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
-@Builder
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 public class TicketDto  implements Serializable {
     private Long id;
     private CustomerDto customerDto;

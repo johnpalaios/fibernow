@@ -1,14 +1,16 @@
 package eu.advantage.fibernow.dto;
 
 import eu.advantage.fibernow.model.enums.Status;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Set;
 
-@Data
-@Builder
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 public class CustomerDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,4 +26,5 @@ public class CustomerDto implements Serializable {
     private String password;
     private Status status;
     private Set<TicketDto> tickets;
+
 }

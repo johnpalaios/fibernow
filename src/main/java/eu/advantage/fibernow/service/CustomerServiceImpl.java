@@ -22,6 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
         beginTransaction();
         try {
             if (customer.getId() == null) {
+                if(customer.getStatus() == null) {
+                    customer.setStatus(Status.ACTIVE);
+                }
                 customerRepository.create(customer);
             }
             else {
