@@ -25,14 +25,14 @@ public class CustomerResource {
     public Response getById(@PathParam("id") Long id) {
         Customer customer = service.findCustomer(id);
         CustomerDto customerDto = DomainToDtoConverter.toDto(customer);
-        return ResponseUtils.successResponse(customerDto);
+        return Response.status(Response.Status.ACCEPTED).entity(customerDto).build();
     }
 
     @GET
     public Response search(@QueryParam("tin") String tin, @QueryParam("email") String email) {
         Customer customer = service.searchCustomer(tin, email);
         CustomerDto customerDto = DomainToDtoConverter.toDto(customer);
-        return ResponseUtils.successResponse(customerDto);
+        return Response.status(Response.Status.ACCEPTED).entity(customerDto).build();
     }
 
     @POST
@@ -45,7 +45,7 @@ public class CustomerResource {
                 .path("/" + resultDto.getId())
                 .build()
         )
-                .entity(ResponseUtils.toJsonString(resultDto))
+                .entity(resultDto)
                 .build();
     }
 
@@ -54,6 +54,6 @@ public class CustomerResource {
     public Response delete(@PathParam("id") Long id) {
         Customer customer = service.deleteCustomer(id);
         CustomerDto customerDto = DomainToDtoConverter.toDto(customer);
-        return ResponseUtils.successResponse(customerDto);
+        return Response.status(Response.Status.ACCEPTED).entity(customerDto).build();
     }
 }

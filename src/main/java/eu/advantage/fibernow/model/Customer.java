@@ -32,9 +32,9 @@ public class Customer implements Serializable {
     private String surname;
     @Column(name = "address")
     private String address;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> phoneNumber;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> email;
     @Column(name = "username")
     private String username;
