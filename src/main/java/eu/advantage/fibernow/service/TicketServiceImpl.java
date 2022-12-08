@@ -60,7 +60,9 @@ public class TicketServiceImpl implements TicketService{
         try {
             ticket = ticketRepository.findById(ticketId);
             if (ticket == null) {
-                throw new BusinessException(BZ_ERROR_2001, ticketId);
+//                throw new BusinessException(BZ_ERROR_2001, ticketId);
+                // status code == 204
+                return null;
             }
             commitTransaction();
         } catch (Exception e) {

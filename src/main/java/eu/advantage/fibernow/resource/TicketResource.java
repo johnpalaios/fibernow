@@ -11,6 +11,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +20,7 @@ import java.util.List;
 @Path("ticket")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Slf4j
 public class TicketResource {
         @Inject
         private TicketService service;
@@ -26,11 +28,13 @@ public class TicketResource {
         @GET
         @Path("/{id}")
         public Response getById(@PathParam("id") Long id) {
-            return successResponse(service.findTicket(id));
+            Ticket ticket = service.findTicket(id);
+            TicketDto ticketDto = DomainToDtoConverter.toDto(ticket);
+            return Response.status(Response.Status.ACCEPTED).entity(ticketDto).build();
         }
 
         @GET
-        public Response search(@QueryParam("id") Long customerId, @QueryParam("startDate") String startDateString,
+        public Response search(@QueryParam("customerId") Long customerId, @QueryParam("startDate") String startDateString,
                                @QueryParam("endDate") String endDateString) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate startDate = null;

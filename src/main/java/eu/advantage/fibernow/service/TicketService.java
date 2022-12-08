@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TicketService {
-    Ticket saveTicket(Ticket dto);
+    Ticket saveTicket(Ticket ticket);
     Ticket findTicket(Long ticketId);
     List<Ticket> searchTickets(Long customerId, LocalDate startDate, LocalDate endDate);
-    Ticket deleteTicket(Ticket dto);
+    Ticket deleteTicket(Ticket ticket);
 }
