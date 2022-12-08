@@ -51,6 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             found = customerRepository.findById(id);
             if (found == null) {
+                // return status code == 204
                 throw new BusinessException(BZ_ERROR_1001, id);
             }
             commitTransaction();
@@ -64,9 +65,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer searchCustomer(String email, String tid) {
+    public Customer searchCustomer(String tin, String email) {
         beginTransaction();
+        Customer found = null;
         try {
+            if(email != null) {
+                found = customerRepository.findByEmail(email);
+            }
+            if(tin != null) {
+                found = customerRepository.findByTin(tin);
+            }
             commitTransaction();
         } catch (Exception e) {
             rollbackTransaction();
@@ -74,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
         } finally {
             closeEntityManager();
         }
-        return null;
+        return found;
     }
 
     @Override
