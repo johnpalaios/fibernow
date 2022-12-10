@@ -1,21 +1,23 @@
 package eu.advantage.fibernow.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
 
-import eu.advantage.fibernow.model.enums.Status;
-import lombok.Builder;
-import lombok.Data;
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@Entity
+@Table(name = "ADMIN")
+public class Admin extends AbstractUser{
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
-import java.util.Set;
-
-@Data
-@Builder
-public class Admin {
-    private Long id;
-    private String name;
-    private String surname;
-    private Set<String> email;
-    private Set<String> phoneNumber;
-    private String username;
-    private String password;
-    private Status status;
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

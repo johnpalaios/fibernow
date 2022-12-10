@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Path("ticket")
+@Path("/tickets")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TicketResource {
@@ -41,31 +41,26 @@ public class TicketResource {
             if(endDateString != null) {
                 endDate = LocalDate.parse(endDateString, formatter);
             }
-            List<Ticket> resultDomainList = service.searchTickets(customerId, startDate, endDate);
-            List<TicketDto> resultDtoList = DomainToDtoConverter.ticketCollectionToTicketDtoList(resultDomainList);
-            return successResponse(resultDtoList);
+            List<TicketDto> result = service.searchTickets(customerId, startDate, endDate);
+            return successResponse(result);
         }
 
         @POST
         public Response save(TicketDto ticketDto) {
-            Ticket ticket = DtoToDomainConverter.toDomain(ticketDto);
-            Ticket resultDomain = service.saveTicket(ticket);
-            TicketDto resultDto = DomainToDtoConverter.toDto(resultDomain);
+            TicketDto result = service.saveTicket(ticketDto);
             return Response.created(UriBuilder
                             .fromResource(eu.advantage.fibernow.resource.TicketResource.class)
-                            .path("/" + resultDto.getId())
+                            .path("/" + result.getId())
                             .build()
                     )
-                    .entity(toJsonString(resultDto))
+                    .entity(toJsonString(result))
                     .build();
         }
 
         @DELETE
         @Path("/{id}")
         public Response delete(@PathParam("id") Long id) {
-            Ticket ticket = service.findTicket(id);
-            Ticket resultDomain = service.deleteTicket(ticket);
-            TicketDto resultDto = DomainToDtoConverter.toDto(resultDomain);
+            TicketDto resultDto = service.deleteTicket(id);
             return successResponse(resultDto);
         }
 

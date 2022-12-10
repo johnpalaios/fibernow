@@ -1,5 +1,5 @@
 package eu.advantage.fibernow.model.enums;
 
-public enum Status {
+public enum UserStatus {
     ACTIVE, INACTIVE, DELETED
 }

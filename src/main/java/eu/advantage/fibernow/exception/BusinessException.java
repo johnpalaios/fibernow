@@ -1,7 +1,7 @@
 package eu.advantage.fibernow.exception;
 
 public class BusinessException extends RuntimeException{
-    private ExceptionStatus status;
+    private final ExceptionStatus status;
 
     public BusinessException(ExceptionStatus status, Object...params) {
         super(String.format(status.getMessage(), params));

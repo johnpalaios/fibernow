@@ -2,22 +2,26 @@ package eu.advantage.fibernow.repository;
 
 import eu.advantage.fibernow.model.Ticket;
 
+import eu.advantage.fibernow.util.EmProducer;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import static eu.advantage.fibernow.util.JPAHelper.getEntityManager;
+public class TicketRepositoryImpl extends AbstractRepository<Ticket, Long> implements TicketRepository {
 
-public class TicketRepositoryImpl extends AbstractRepository<Ticket, Long> implements ITicketRepository {
+    @Inject
+    EmProducer emProducer;
+
     public TicketRepositoryImpl() {
         this.setPersistentClass(Ticket.class);
     }
 
     @Override
     public List<Ticket> findTicketsBetweenDates(LocalDate startDate, LocalDate endDate) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emProducer.getEm();
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Ticket> criteriaQuery = builder.createQuery(Ticket.class);
         Root<Ticket> root = criteriaQuery.from(Ticket.class);
