@@ -19,7 +19,7 @@ public enum ExceptionStatus {
     BZ_ERROR_3001("Admin with [id=%s] does not exist.", 1);
     final String message;
 
-    Integer numberOfParams;
+    final Integer numberOfParams;
 
     ExceptionStatus(String message, Integer numberOfParams) {
         this.message = message;
