@@ -5,7 +5,7 @@ import jakarta.persistence.TypedQuery;
 
 import static eu.advantage.fibernow.util.JPAHelper.getEntityManager;
 
-public class CustomerRepositoryImpl extends AbstractRepository<Customer, Long> implements ICustomerRepository {
+public class CustomerRepositoryImpl extends AbstractRepository<Customer, Long> implements CustomerRepository {
     public CustomerRepositoryImpl() {
         this.setPersistentClass(Customer.class);
     }

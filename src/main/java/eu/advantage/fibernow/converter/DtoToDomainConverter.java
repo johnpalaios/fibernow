@@ -10,34 +10,34 @@ public class DtoToDomainConverter {
         if (dto == null) {
             return null;
         }
-        return Customer.builder()
-                .id(dto.getId())
-                .tin(dto.getTin())
-                .name(dto.getName())
-                .surname(dto.getSurname())
-                .email(dto.getEmail())
-                .phoneNumber(dto.getPhoneNumber())
-                .address(dto.getAddress())
-                .username(dto.getUsername())
-                .password(dto.getPassword())
-                .status(dto.getStatus())
-                .build();
+        Customer domain = new Customer();
+        domain.setId(dto.getId());
+        domain.setTin(dto.getTin());
+        domain.setName(dto.getName());
+        domain.setSurname(dto.getSurname());
+        domain.setEmail(dto.getEmail());
+        domain.setPhoneNumber(dto.getPhoneNumber());
+        domain.setAddress(dto.getAddress());
+        domain.setUsername(dto.getUsername());
+        domain.setPassword(dto.getPassword());
+        domain.setUserStatus(dto.getUserStatus());
+        return domain;
     }
 
     public static Ticket toDomain(TicketDto dto) {
         if (dto == null) {
             return null;
         }
-        return Ticket.builder()
-                .id(dto.getId())
-                .customer(toDomain(dto.getCustomerDto()))
-                .receivedDate(dto.getReceivedDate())
-                .scheduledDatetime(dto.getScheduledDatetime())
-                .status(dto.getStatus())
-                .type(dto.getType())
-                .estimatedCost(dto.getEstimatedCost())
-                .address(dto.getAddress())
-                .description(dto.getDescription())
-                .build();
+        Ticket ticket = new Ticket();
+        ticket.setId(dto.getId());
+        ticket.setCustomer(toDomain(dto.getCustomerDto()));
+        ticket.setReceivedDate(dto.getReceivedDate());
+        ticket.setScheduledDatetime(dto.getScheduledDatetime());
+        ticket.setTicketStatus(dto.getTicketStatus());
+        ticket.setType(dto.getType());
+        ticket.setEstimatedCost(dto.getEstimatedCost());
+        ticket.setAddress(dto.getAddress());
+        ticket.setDescription(dto.getDescription());
+        return ticket;
     }
 }

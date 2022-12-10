@@ -5,48 +5,42 @@ import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class DomainToDtoConverter {
+
+    private DomainToDtoConverter() {}
+
     public static CustomerDto toDto(Customer customer) {
         if (customer == null) {
             return null;
         }
-        return CustomerDto.builder()
-                .id(customer.getId())
-                .tin(customer.getTin())
-                .name(customer.getName())
-                .surname(customer.getSurname())
-                .email(customer.getEmail())
-                .phoneNumber(customer.getPhoneNumber())
-                .address(customer.getAddress())
-                .username(customer.getUsername())
-                .password(customer.getPassword())
-                .status(customer.getStatus())
-                .build();
+        CustomerDto dto = new CustomerDto();
+        dto.setId(customer.getId());
+        dto.setTin(customer.getTin());
+        dto.setName(customer.getName());
+        dto.setSurname(customer.getSurname());
+        dto.setEmail(customer.getEmail());
+        dto.setPhoneNumber(customer.getPhoneNumber());
+        dto.setAddress(customer.getAddress());
+        dto.setUsername(customer.getUsername());
+        dto.setPassword(customer.getPassword());
+        dto.setUserStatus(customer.getUserStatus());
+        return dto;
     }
 
     public static TicketDto toDto(Ticket ticket) {
         if (ticket == null) {
             return null;
         }
-        return TicketDto.builder()
-                .id(ticket.getId())
-                .customerDto(toDto(ticket.getCustomer()))
-                .receivedDate(ticket.getReceivedDate())
-                .scheduledDatetime(ticket.getScheduledDatetime())
-                .status(ticket.getStatus())
-                .type(ticket.getType())
-                .estimatedCost(ticket.getEstimatedCost())
-                .address(ticket.getAddress())
-                .description(ticket.getDescription())
-                .build();
+        TicketDto dto = new TicketDto();
+        dto.setId(ticket.getId());
+        dto.setCustomerDto(toDto(ticket.getCustomer()));
+        dto.setReceivedDate(ticket.getReceivedDate());
+        dto.setScheduledDatetime(ticket.getScheduledDatetime());
+        dto.setTicketStatus(ticket.getTicketStatus());
+        dto.setType(ticket.getType());
+        dto.setEstimatedCost(ticket.getEstimatedCost());
+        dto.setAddress(ticket.getAddress());
+        dto.setDescription(ticket.getDescription());
+        return dto;
     }
-
-    public static <T extends Collection<Ticket>> List<TicketDto> ticketCollectionToTicketDtoList(T ticketCollection) {
-        return ticketCollection.stream().map(DomainToDtoConverter::toDto).collect(Collectors.toList());
-    }
-
 }

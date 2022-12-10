@@ -1,10 +1,13 @@
 package eu.advantage.fibernow.service;
 
-import eu.advantage.fibernow.model.Customer;
+import eu.advantage.fibernow.dto.CustomerDto;
+import eu.advantage.fibernow.exception.BusinessException;
+
+import java.util.List;
 
 public interface CustomerService {
-    Customer saveCustomer(Customer dto);
-    Customer findCustomer(Long id);
-    Customer searchCustomer(String email, String tid);
-    Customer deleteCustomer(Long id);
+    CustomerDto saveCustomer(CustomerDto dto) throws BusinessException;
+    CustomerDto findCustomer(Long id) throws BusinessException;
+    List<CustomerDto> searchCustomers(String email, String tin) throws BusinessException;
+    CustomerDto deleteCustomer(Long id) throws BusinessException;
 }

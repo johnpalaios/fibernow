@@ -37,3 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 .idea
+/src/main/java/eu/advantage/fibernow/bootstrap/DemoMain.java
