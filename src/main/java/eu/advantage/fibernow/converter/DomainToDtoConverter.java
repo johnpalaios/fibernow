@@ -5,6 +5,8 @@ import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 
+import java.util.stream.Collectors;
+
 public class DomainToDtoConverter {
 
     private DomainToDtoConverter() {}
@@ -24,6 +26,7 @@ public class DomainToDtoConverter {
         dto.setUsername(customer.getUsername());
         dto.setPassword(customer.getPassword());
         dto.setUserStatus(customer.getUserStatus());
+        dto.setTickets(customer.getTickets().stream().map(DomainToDtoConverter::toDto).collect(Collectors.toSet()));
         return dto;
     }
 
@@ -33,7 +36,7 @@ public class DomainToDtoConverter {
         }
         TicketDto dto = new TicketDto();
         dto.setId(ticket.getId());
-        dto.setCustomerDto(toDto(ticket.getCustomer()));
+        dto.setCustomerId(ticket.getCustomer().getId());
         dto.setReceivedDate(ticket.getReceivedDate());
         dto.setScheduledDatetime(ticket.getScheduledDatetime());
         dto.setTicketStatus(ticket.getTicketStatus());

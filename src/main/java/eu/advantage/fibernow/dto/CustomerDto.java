@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class CustomerDto implements Serializable {
     private String surname;
     private String address;
     @NotEmpty
-    private Set<String> phoneNumber;
+    private Set<String> phoneNumber = new HashSet<>();
     @NotBlank
     @Email
     private String email;
@@ -36,7 +37,7 @@ public class CustomerDto implements Serializable {
     @Size(min = 8)
     private String password;
     private UserStatus userStatus;
-    private Set<TicketDto> tickets;
+    private Set<TicketDto> tickets = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

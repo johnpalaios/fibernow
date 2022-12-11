@@ -15,16 +15,17 @@ import java.util.Objects;
 public class TicketDto  implements Serializable {
     private Long id;
     @NotNull
-    private CustomerDto customerDto;
+    private Long customerId;
     @PastOrPresent
     private LocalDate receivedDate; // the date the ticket was received
-    @NotBlank
+    @NotNull
     @FutureOrPresent
     private LocalDateTime scheduledDatetime; // date and time of the scheduled action
     private TicketStatus ticketStatus; // default : STANDBY
-    @NotBlank
+//    @Pattern(regexp = "NEW_INSTALLATION|" +
+//            "BROKEN_LINE|" +
+//            "LIMITED_CONNECTIVITY")
     private TicketType type;
-    @NotBlank
     @PositiveOrZero
     private BigDecimal estimatedCost;
     @NotBlank

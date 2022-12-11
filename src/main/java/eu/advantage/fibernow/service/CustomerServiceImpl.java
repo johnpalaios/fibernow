@@ -2,16 +2,19 @@ package eu.advantage.fibernow.service;
 
 import eu.advantage.fibernow.converter.DomainToDtoConverter;
 import eu.advantage.fibernow.dto.CustomerDto;
+import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.exception.BusinessException;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.UserStatus;
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.repository.CustomerRepository;
+import eu.advantage.fibernow.repository.TicketRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -27,10 +30,16 @@ public class CustomerServiceImpl implements CustomerService {
     @Inject
     private CustomerRepository customerRepository;
 
+    @Inject
+    private TicketRepository ticketRepository;
+
     @Override
     @Transactional
     public CustomerDto saveCustomer(CustomerDto dto) throws BusinessException{
         Customer customer = toDomain(dto);
+        if (customer.getTickets() == null) {
+            customer.setTickets(new HashSet<>());
+        }
         if (customer.getUserStatus() == null) {
             customer.setUserStatus(UserStatus.ACTIVE);
         }
@@ -56,10 +65,10 @@ public class CustomerServiceImpl implements CustomerService {
             if (found == null) {
                 throw new BusinessException(BZ_ERROR_1001, customer.getId());
             }
-            if (!tinCustomers.isEmpty() && Objects.equals(tinCustomers.get(0).getId(), customer.getId())) {
+            if (!tinCustomers.isEmpty() && !Objects.equals(tinCustomers.get(0).getId(), customer.getId())) {
                 throw new BusinessException(BZ_ERROR_1005, customer.getTin());
             }
-            if (!emailCustomers.isEmpty() && Objects.equals(emailCustomers.get(0).getId(), customer.getId())) {
+            if (!emailCustomers.isEmpty() && !Objects.equals(emailCustomers.get(0).getId(), customer.getId())) {
                 throw new BusinessException(BZ_ERROR_1006, customer.getEmail());
             }
             customerRepository.update(customer);
@@ -73,6 +82,8 @@ public class CustomerServiceImpl implements CustomerService {
         if (found == null) {
             throw new BusinessException(BZ_ERROR_1001, id);
         }
+        Set<Ticket> tickets = new HashSet<>(ticketRepository.findTicketsByCustomer(found));
+        found.setTickets(tickets);
         return toDto(found);
     }
 
@@ -83,7 +94,6 @@ public class CustomerServiceImpl implements CustomerService {
                     .searchByCriteria("tin", tin).stream()
                     .map(DomainToDtoConverter::toDto)
                     .collect(Collectors.toList());
-
             if (found.isEmpty()) {
                 throw new BusinessException(BZ_ERROR_1008, tin);
             }

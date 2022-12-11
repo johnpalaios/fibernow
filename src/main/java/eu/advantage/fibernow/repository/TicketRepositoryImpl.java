@@ -1,5 +1,6 @@
 package eu.advantage.fibernow.repository;
 
+import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 
 import jakarta.inject.Inject;
@@ -32,5 +33,14 @@ public class TicketRepositoryImpl extends AbstractRepository<Ticket, Long> imple
         typedQuery.setParameter("endDate", endDate);
 
         return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<Ticket> findTicketsByCustomer(Customer customer) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Ticket> criteriaQuery = builder.createQuery(Ticket.class);
+        Root<Ticket> root = criteriaQuery.from(Ticket.class);
+        criteriaQuery.select(root).where(builder.equal(root.get("customer"), customer));
+        return em.createQuery(criteriaQuery).getResultList();
     }
 }

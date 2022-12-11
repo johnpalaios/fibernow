@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,15 +27,15 @@ public class Customer extends AbstractUser implements Serializable {
     @Column(name = "address")
     private String address;
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> phoneNumber;
+    private Set<String> phoneNumber = new HashSet<>();
     private String email;
     @OneToMany(
-            mappedBy = "customer",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true,
+            mappedBy = "customer"
     )
     @ToString.Exclude
-    private Set<Ticket> tickets;
+    private Set<Ticket> tickets = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

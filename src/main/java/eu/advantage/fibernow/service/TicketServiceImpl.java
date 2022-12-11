@@ -5,6 +5,7 @@ import eu.advantage.fibernow.converter.DtoToDomainConverter;
 import eu.advantage.fibernow.dto.CustomerDto;
 import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.exception.BusinessException;
+import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.repository.TicketRepository;
@@ -32,8 +33,10 @@ public class TicketServiceImpl implements TicketService{
 
     @Override
     @Transactional
-    public TicketDto saveTicket(TicketDto dto) {
+    public TicketDto saveTicket(TicketDto dto) throws BusinessException{
         Ticket ticket = toDomain(dto);
+        Customer customer = toDomain(customerService.findCustomer(dto.getCustomerId()));
+        ticket.setCustomer(customer);
         if (ticket.getId() == null) {
             if(ticket.getReceivedDate() == null) {
                 ticket.setReceivedDate(LocalDate.now());
@@ -45,7 +48,7 @@ public class TicketServiceImpl implements TicketService{
         } else {
             Ticket found = ticketRepository.findById(ticket.getId());
             if (found == null) {
-                throw new BusinessException(BZ_ERROR_1001, ticket.getId());
+                throw new BusinessException(BZ_ERROR_2001, ticket.getId());
             }
             ticketRepository.update(ticket);
         }
@@ -54,7 +57,7 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public TicketDto findTicket(Long ticketId) {
+    public TicketDto findTicket(Long ticketId) throws BusinessException{
         Ticket ticket = ticketRepository.findById(ticketId);
         if (ticket == null) {
             throw new BusinessException(BZ_ERROR_2001, ticketId);
@@ -63,24 +66,23 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public List<TicketDto> searchTickets(Long customerId, LocalDate startDate, LocalDate endDate) {
-        List<Ticket> ticketList = new ArrayList<>();
-        if(customerId != null) {
-            CustomerDto customer = customerService.findCustomer(customerId);
-            Set<Ticket> ticketSet = customer
-                    .getTickets()
+    public List<TicketDto> searchTickets(Long customerId, LocalDate startDate, LocalDate endDate) throws BusinessException{
+        if (customerId == null) {
+            return filterByDates(startDate, endDate)
                     .stream()
-                    .map(DtoToDomainConverter::toDomain)
-                    .collect(Collectors.toSet());
-            if(startDate != null) {
-                ticketList = filterByDates(startDate, endDate, ticketSet);
-            } else {
-                ticketList.addAll(ticketSet);
-            }
-        } else {
-            ticketList = filterByDates(startDate, endDate);
+                    .map(DomainToDtoConverter::toDto)
+                    .collect(Collectors.toList());
         }
-        return ticketList
+        Customer customer = toDomain(customerService.findCustomer(customerId));
+        List<Ticket> tickets = new ArrayList<>(customer.getTickets());
+        if(startDate == null) {
+            return tickets
+                    .stream()
+                    .map(DomainToDtoConverter::toDto)
+                    .collect(Collectors.toList());
+        }
+        tickets = filterByDates(startDate, endDate, tickets);
+        return tickets
                 .stream()
                 .map(DomainToDtoConverter::toDto)
                 .collect(Collectors.toList());
@@ -88,7 +90,7 @@ public class TicketServiceImpl implements TicketService{
 
     @Override
     @Transactional
-    public TicketDto deleteTicket(Long id) {
+    public TicketDto deleteTicket(Long id) throws BusinessException{
         Ticket found;
         found = ticketRepository.findById(id);
         if (found == null) {
@@ -100,7 +102,7 @@ public class TicketServiceImpl implements TicketService{
         return toDto(found);
     }
 
-    private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate) {
+    private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate) throws BusinessException{
         if(startDate != null && endDate != null) {
             return ticketRepository.findTicketsBetweenDates(startDate, endDate);
         } else if(startDate != null){
@@ -110,29 +112,23 @@ public class TicketServiceImpl implements TicketService{
         }
     }
 
-    private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate, Set<Ticket> ticketSet) {
-        List<Ticket> ticketList = new ArrayList<>();
+    private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate, List<Ticket> tickets) throws BusinessException{
         if (startDate == null) {
-            return new ArrayList<>(ticketSet);
+            return tickets;
         }
         if(endDate != null) {
             if(endDate.isBefore(startDate)) {
                 throw new BusinessException(BZ_ERROR_2002, startDate.toString(), endDate.toString());
             }
-            ticketSet.forEach(ticket -> {
-                LocalDate date = ticket.getReceivedDate();
-                if(date.isAfter(startDate) && date.isBefore(endDate)) {
-                    ticketList.add(ticket);
-                }
-            });
+            return tickets.stream()
+                    .filter(ticket -> ticket.getReceivedDate().isAfter(startDate) &&
+                            ticket.getReceivedDate().isBefore(endDate))
+                    .collect(Collectors.toList());
         } else {
-            ticketSet.forEach(ticket -> {
-                if (ticket.getReceivedDate().equals(startDate)) {
-                    ticketList.add(ticket);
-                }
-            });
+            return tickets.stream()
+                    .filter(ticket -> ticket.getReceivedDate().equals(startDate))
+                    .collect(Collectors.toList());
         }
-        return ticketList;
     }
 
     private void addTicketToCustomer(Ticket ticket) throws BusinessException{
