@@ -5,7 +5,7 @@
              version="3.0">
     <persistence-unit name="FiberNow-PU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:/MySqlDS</jta-data-source>
+        <jta-data-source>java:/FiberNowDS</jta-data-source>
 
         <properties>
             <property name="hibernate.show_sql" value="true"/>

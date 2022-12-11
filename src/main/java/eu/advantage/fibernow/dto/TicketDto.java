@@ -22,7 +22,7 @@ public class TicketDto  implements Serializable {
     @FutureOrPresent
     private LocalDateTime scheduledDatetime; // date and time of the scheduled action
     private TicketStatus ticketStatus; // default : STANDBY
-    @NotBlank
+    @NotNull
     private TicketType type;
     @NotBlank
     @PositiveOrZero

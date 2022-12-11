@@ -2,6 +2,7 @@ package eu.advantage.fibernow.resource;
 
 import eu.advantage.fibernow.dto.CustomerDto;
 import eu.advantage.fibernow.service.CustomerService;
+import eu.advantage.fibernow.util.rest.ApiResponse;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -20,12 +21,18 @@ public class CustomerResource {
     @GET
     @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
-        return Response.status(Response.Status.ACCEPTED).entity(service.findCustomer(id)).build();
+        return Response
+                .status(Response.Status.ACCEPTED)
+                .entity(ApiResponse.builder().data(service.findCustomer(id)).build())
+                .build();
     }
 
     @GET
     public Response search(@QueryParam("tin") String tin, @QueryParam("email") String email) {
-        return Response.status(Response.Status.ACCEPTED).entity(service.searchCustomers(tin, email)).build();
+        return Response
+                .status(Response.Status.ACCEPTED)
+                .entity(ApiResponse.builder().data(service.searchCustomers(email, tin)).build())
+                .build();
     }
 
     @POST
@@ -36,13 +43,16 @@ public class CustomerResource {
                 .path("/" + result.getId())
                 .build()
         )
-                .entity(result)
+                .entity(ApiResponse.builder().data(result).build())
                 .build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        return Response.status(Response.Status.ACCEPTED).entity(service.deleteCustomer(id)).build();
+        return Response
+                .status(Response.Status.ACCEPTED)
+                .entity(ApiResponse.builder().data(service.deleteCustomer(id)).build())
+                .build();
     }
 }

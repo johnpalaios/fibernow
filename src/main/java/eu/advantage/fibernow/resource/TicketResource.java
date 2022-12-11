@@ -6,6 +6,8 @@ import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.service.TicketService;
 import static eu.advantage.fibernow.util.rest.ResponseUtils.*;
+
+import eu.advantage.fibernow.util.rest.ApiResponse;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -29,7 +31,10 @@ public class TicketResource {
         @GET
         @Path("/{id}")
         public Response getById(@PathParam("id") Long id) {
-            return Response.status(Response.Status.ACCEPTED).entity(service.findTicket(id)).build();
+            return Response
+                    .status(Response.Status.ACCEPTED)
+                    .entity(ApiResponse.builder().data(service.findTicket(id)).build())
+                    .build();
         }
 
         @GET
@@ -45,7 +50,10 @@ public class TicketResource {
                 endDate = LocalDate.parse(endDateString, formatter);
             }
             List<TicketDto> result = service.searchTickets(customerId, startDate, endDate);
-            return successResponse(result);
+            return Response
+                    .status(Response.Status.ACCEPTED)
+                    .entity(ApiResponse.builder().data(result).build())
+                    .build();
         }
 
         @POST
@@ -56,14 +64,18 @@ public class TicketResource {
                             .path("/" + result.getId())
                             .build()
                     )
-                    .entity(toJsonString(result))
+                    .entity(ApiResponse.builder().data(result).build())
                     .build();
         }
 
         @DELETE
         @Path("/{id}")
         public Response delete(@PathParam("id") Long id) {
-            return successResponse(service.deleteTicket(id));
+
+            return Response
+                    .status(Response.Status.ACCEPTED)
+                    .entity(ApiResponse.builder().data(service.deleteTicket(id)).build())
+                    .build();
         }
 
 }
