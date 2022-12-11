@@ -1,5 +1,6 @@
 package eu.advantage.fibernow.exception;
 
+import eu.advantage.fibernow.util.rest.ApiResponse;
 import eu.advantage.fibernow.util.rest.ResponseUtils;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
@@ -12,6 +13,10 @@ public class BusinessExceptionMapper implements ExceptionMapper<BusinessExceptio
         BaseError error = new BaseError();
         error.setMessage(e.getMessage());
         error.setCode(e.getStatus());
-        return ResponseUtils.errorResponse(error, Response.Status.BAD_REQUEST);
+
+        return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(ApiResponse.builder().baseErrors(error).build())
+                .build();
     }
 }

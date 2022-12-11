@@ -1,5 +1,6 @@
 package eu.advantage.fibernow.exception;
 
+import eu.advantage.fibernow.util.rest.ApiResponse;
 import eu.advantage.fibernow.util.rest.ResponseUtils;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.core.Response;
@@ -21,6 +22,10 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
                     error.setMessage(String.format(ExceptionStatus.BZ_ERROR_0001.getMessage(), item.getMessage()));
                     return error;
                 }).collect(Collectors.toList());
-        return ResponseUtils.errorResponse(errors, Response.Status.BAD_REQUEST);
+        return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(ApiResponse.builder().baseErrors(errors).build())
+                .build();
     }
+
 }
