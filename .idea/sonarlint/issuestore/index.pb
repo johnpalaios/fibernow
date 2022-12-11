@@ -3,17 +3,9 @@
 Lsrc/main/java/eu/advantage/fibernow/util/rest/LocalDateJsonDeserializer.java,c\7\c767e4f1f34beee22dc5b356c4702cd6aa5fb967
 v
 Fsrc/test/java/eu/advantage/fibernow/service/TicketServiceImplTest.java,0\3\038d5f9caf8a580e7efbb6b7afc6c9ee0c01d63c
-z
-Jsrc/test/java/eu/advantage/fibernow/repository/AbstractRepositoryTest.java,e\1\e1bac2c5ffe1033e3cd6dde68b076e93a409f4c1
 d
 4src/main/java/eu/advantage/fibernow/FiberNowApp.java,1\e\1e85683f9b33c6bd94d205165dbe0b3aa1abcad8
 p
-@src/main/java/eu/advantage/fibernow/util/rest/ResponseUtils.java,c\8\c840d823e477c07df085bd3ac3bed8f0c1facee7
-p
 @src/test/java/eu/advantage/fibernow/common/CommonDomainTest.java,b\c\bc4647e4c9efec0a943233ae50e43b70647458ee
-t
-Dsrc/test/java/eu/advantage/fibernow/common/CommonRepositoryTest.java,a\2\a29b20ab0ff1b42f5b70fa627ce8c7f2aeedc420
-n
->src/test/java/eu/advantage/fibernow/common/EmTestProducer.java,2\e\2eaf9c853e8de9bd4f960f6d1ca3219edb7ddfe7
 x
 Hsrc/test/java/eu/advantage/fibernow/service/CustomerServiceImplTest.java,2\5\255e50de570b2f1628fa75af9c08e2b2007e2a0a

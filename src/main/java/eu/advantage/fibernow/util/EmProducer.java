@@ -12,7 +12,7 @@ public class EmProducer {
     private EntityManager em;
 
     @Produces
-    public EntityManager getEm() {
+    public EntityManager getEntityManager() {
         return em;
     }
 }

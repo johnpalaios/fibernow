@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 
-import java.util.Collections;
 import java.util.List;
 
 public class AbstractRepository<T, K> implements GenericRepository<T, K> {

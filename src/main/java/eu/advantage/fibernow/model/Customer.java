@@ -25,7 +25,7 @@ public class Customer extends AbstractUser implements Serializable {
     private String tin;
     @Column(name = "address")
     private String address;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> phoneNumber;
     private String email;
     @OneToMany(

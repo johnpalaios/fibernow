@@ -7,6 +7,7 @@ import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.service.TicketService;
 import static eu.advantage.fibernow.util.rest.ResponseUtils.*;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,9 +29,7 @@ public class TicketResource {
         @GET
         @Path("/{id}")
         public Response getById(@PathParam("id") Long id) {
-            Ticket ticket = service.findTicket(id);
-            TicketDto ticketDto = DomainToDtoConverter.toDto(ticket);
-            return Response.status(Response.Status.ACCEPTED).entity(ticketDto).build();
+            return Response.status(Response.Status.ACCEPTED).entity(service.findTicket(id)).build();
         }
 
         @GET
@@ -50,7 +49,7 @@ public class TicketResource {
         }
 
         @POST
-        public Response save(TicketDto ticketDto) {
+        public Response save(@Valid TicketDto ticketDto) {
             TicketDto result = service.saveTicket(ticketDto);
             return Response.created(UriBuilder
                             .fromResource(eu.advantage.fibernow.resource.TicketResource.class)
@@ -64,8 +63,7 @@ public class TicketResource {
         @DELETE
         @Path("/{id}")
         public Response delete(@PathParam("id") Long id) {
-            TicketDto resultDto = service.deleteTicket(id);
-            return successResponse(resultDto);
+            return successResponse(service.deleteTicket(id));
         }
 
 }

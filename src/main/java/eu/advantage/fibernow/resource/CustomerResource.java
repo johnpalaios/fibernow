@@ -3,6 +3,7 @@ package eu.advantage.fibernow.resource;
 import eu.advantage.fibernow.dto.CustomerDto;
 import eu.advantage.fibernow.service.CustomerService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,7 +29,7 @@ public class CustomerResource {
     }
 
     @POST
-    public Response save(CustomerDto customerDto) {
+    public Response save(@Valid CustomerDto customerDto) {
         CustomerDto result = service.saveCustomer(customerDto);
         return Response.created(UriBuilder
                 .fromResource(CustomerResource.class)
