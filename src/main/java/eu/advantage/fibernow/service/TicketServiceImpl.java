@@ -1,7 +1,6 @@
 package eu.advantage.fibernow.service;
 
 import eu.advantage.fibernow.converter.DomainToDtoConverter;
-import eu.advantage.fibernow.converter.DtoToDomainConverter;
 import eu.advantage.fibernow.dto.CustomerDto;
 import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.exception.BusinessException;
@@ -136,6 +135,9 @@ public class TicketServiceImpl implements TicketService{
         Long customerId = ticket.getCustomer().getId();
         CustomerDto customer = customerService.findCustomer(customerId);
         Set<TicketDto> customerTickets = customer.getTickets();
+        if (customerTickets == null) {
+            customerTickets = new HashSet<>();
+        }
         customerTickets.add(toDto(ticket));
         customer.setTickets(customerTickets);
         customerService.saveCustomer(customer);

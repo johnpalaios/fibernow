@@ -31,8 +31,10 @@ public class Ticket extends AbstractEntity implements Serializable {
     @Column(name = "scheduled_datetime")
     private LocalDateTime scheduledDatetime; // date and time of the scheduled action
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private TicketStatus ticketStatus; // default : STANDBY
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private TicketType type;
     @Column(name = "estimated_cost")
     private BigDecimal estimatedCost;

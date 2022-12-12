@@ -40,6 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.getTickets() == null) {
             customer.setTickets(new HashSet<>());
         }
+        customer.getTickets().forEach(ticket -> ticket.setCustomer(customer));
         if (customer.getUserStatus() == null) {
             customer.setUserStatus(UserStatus.ACTIVE);
         }
