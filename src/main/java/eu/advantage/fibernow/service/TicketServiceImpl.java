@@ -94,7 +94,7 @@ public class TicketServiceImpl implements TicketService{
         Ticket found;
         found = ticketRepository.findById(id);
         if (found == null) {
-            throw new BusinessException(BZ_ERROR_1001, id);
+            throw new BusinessException(BZ_ERROR_2001, id);
         }
         //Soft Delete
         found.setTicketStatus(TicketStatus.DELETED);

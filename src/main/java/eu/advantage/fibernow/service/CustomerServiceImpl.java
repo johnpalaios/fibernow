@@ -2,13 +2,13 @@ package eu.advantage.fibernow.service;
 
 import eu.advantage.fibernow.converter.DomainToDtoConverter;
 import eu.advantage.fibernow.dto.CustomerDto;
-import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.exception.BusinessException;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.UserStatus;
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.repository.CustomerRepository;
+import eu.advantage.fibernow.repository.GenericRepository;
 import eu.advantage.fibernow.repository.TicketRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -25,7 +25,7 @@ import static eu.advantage.fibernow.converter.DtoToDomainConverter.*;
 import static eu.advantage.fibernow.exception.ExceptionStatus.*;
 
 @Stateless
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl extends AbstractUserService<Customer> implements CustomerService {
 
     @Inject
     private CustomerRepository customerRepository;
@@ -145,5 +145,10 @@ public class CustomerServiceImpl implements CustomerService {
         found.setUserStatus(UserStatus.DELETED);
         customerRepository.update(found);
         return toDto(found);
+    }
+
+    @Override
+    public GenericRepository<Customer, Long> getRepository() {
+        return customerRepository;
     }
 }

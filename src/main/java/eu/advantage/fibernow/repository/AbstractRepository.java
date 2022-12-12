@@ -7,7 +7,7 @@ import jakarta.persistence.criteria.*;
 
 import java.util.List;
 
-public class AbstractRepository<T, K> implements GenericRepository<T, K> {
+public abstract class AbstractRepository<T, K> implements GenericRepository<T, K> {
     private Class<T> persistentClass;
 
     @Inject

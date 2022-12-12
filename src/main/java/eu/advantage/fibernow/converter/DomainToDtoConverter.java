@@ -23,8 +23,8 @@ public class DomainToDtoConverter {
         dto.setEmail(customer.getEmail());
         dto.setPhoneNumber(customer.getPhoneNumber());
         dto.setAddress(customer.getAddress());
-        dto.setUsername(customer.getUsername());
-        dto.setPassword(customer.getPassword());
+        dto.setUsername(customer.getCredentials().getUsername());
+        dto.setPassword(customer.getCredentials().getPassword());
         dto.setUserStatus(customer.getUserStatus());
         dto.setTickets(customer.getTickets().stream().map(DomainToDtoConverter::toDto).collect(Collectors.toSet()));
         return dto;

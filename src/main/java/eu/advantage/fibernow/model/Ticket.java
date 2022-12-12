@@ -24,8 +24,6 @@ public class Ticket extends AbstractEntity implements Serializable {
     @JoinColumn(name = "customer_id", nullable = false)
     @ToString.Exclude
     private Customer customer;
-    @CreationTimestamp
-    @Temporal(TemporalType.DATE)
     @Column(name = "received_date")
     private LocalDate receivedDate; // the date the ticket was received
     @Column(name = "scheduled_datetime")

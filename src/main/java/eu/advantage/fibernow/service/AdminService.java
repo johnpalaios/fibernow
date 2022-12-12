@@ -4,7 +4,7 @@ import eu.advantage.fibernow.model.Admin;
 
 import java.util.List;
 
-public interface AdminService {
+public interface AdminService extends UserService<Admin>{
     Admin saveAdmin(Admin admin);
     Admin findAdmin(Long id);
 

@@ -3,6 +3,7 @@ package eu.advantage.fibernow.resource;
 import eu.advantage.fibernow.dto.CustomerDto;
 import eu.advantage.fibernow.service.CustomerService;
 import eu.advantage.fibernow.util.rest.ApiResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -20,6 +21,7 @@ public class CustomerResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"ADMIN", "CUSTOMER"})
     public Response getById(@PathParam("id") Long id) {
         return Response
                 .status(Response.Status.ACCEPTED)
@@ -28,6 +30,7 @@ public class CustomerResource {
     }
 
     @GET
+    @RolesAllowed("ADMIN")
     public Response search(@QueryParam("tin") String tin, @QueryParam("email") String email) {
         return Response
                 .status(Response.Status.ACCEPTED)
@@ -36,6 +39,7 @@ public class CustomerResource {
     }
 
     @POST
+    @RolesAllowed("ADMIN")
     public Response save(@Valid CustomerDto customerDto) {
         CustomerDto result = service.saveCustomer(customerDto);
         return Response.created(UriBuilder
@@ -49,6 +53,7 @@ public class CustomerResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("ADMIN")
     public Response delete(@PathParam("id") Long id) {
         return Response
                 .status(Response.Status.ACCEPTED)

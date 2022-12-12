@@ -16,7 +16,9 @@ public enum ExceptionStatus {
     BZ_ERROR_2001("Ticket with [id=%s] does not exist.", 1),
     BZ_ERROR_2002("Dates Not Valid : [Start Date = %s] and [End Date = %s]", 2),
     BZ_ERROR_2003("Ticket search with no parameters",0),
-    BZ_ERROR_3001("Admin with [id=%s] does not exist.", 1);
+    BZ_ERROR_3001("Admin with [id=%s] does not exist.", 1),
+    BZ_ERROR_4001("User with [username=%s] does not exist.", 1),
+    BZ_ERROR_4002("Wrong password for User with [id=%].", 1);
     final String message;
 
     final Integer numberOfParams;
