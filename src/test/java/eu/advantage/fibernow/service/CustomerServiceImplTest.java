@@ -9,6 +9,7 @@ import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.model.enums.UserStatus;
 import eu.advantage.fibernow.repository.CustomerRepository;
+import eu.advantage.fibernow.repository.TicketRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 
@@ -27,6 +28,8 @@ public class CustomerServiceImplTest {
 
     @Mock
     private CustomerRepository customerRepository;
+    @Mock
+    private TicketRepository ticketRepository;
     @InjectMocks
     private CustomerServiceImpl customerService;
     private Ticket ticket = new Ticket();
@@ -153,15 +156,14 @@ public class CustomerServiceImplTest {
     @DisplayName("Test findCustomer() with given ID")
     final void findCustomerWithNoExceptions() {
         // Find customer
-        when(customerRepository.findById(1L)).thenReturn(customer);
-        assertEquals(customerDto, customerService.findCustomer(1L));
+        when(customerRepository.findById(anyLong())).thenReturn(customer);
+        assertEquals(customerDto, customerService.findCustomer(anyLong()));
     }
 
     @Test
     @DisplayName("Test findCustomer() when ID is not in DB")
     final void findCustomerWhenNotExists() {
         // Test BusinessException BZ_ERROR_1001
-
         when(customerRepository.findById(anyLong())).thenReturn(null);
         BusinessException thrown = Assertions.assertThrows(BusinessException.class, () -> {
             customerService.findCustomer(anyLong());

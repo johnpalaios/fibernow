@@ -94,7 +94,7 @@ public class TicketServiceImpl implements TicketService{
         Ticket found;
         found = ticketRepository.findById(id);
         if (found == null) {
-            throw new BusinessException(BZ_ERROR_1001, id);
+            throw new BusinessException(BZ_ERROR_2001, id);
         }
         //Soft Delete
         found.setTicketStatus(TicketStatus.DELETED);
@@ -121,8 +121,8 @@ public class TicketServiceImpl implements TicketService{
                 throw new BusinessException(BZ_ERROR_2002, startDate.toString(), endDate.toString());
             }
             return tickets.stream()
-                    .filter(ticket -> ticket.getReceivedDate().isAfter(startDate) &&
-                            ticket.getReceivedDate().isBefore(endDate))
+                    .filter(ticket -> (ticket.getReceivedDate().isAfter(startDate) || ticket.getReceivedDate().isEqual(startDate))
+                            && (ticket.getReceivedDate().isBefore(endDate) || ticket.getReceivedDate().isEqual(endDate)))
                     .collect(Collectors.toList());
         } else {
             return tickets.stream()
