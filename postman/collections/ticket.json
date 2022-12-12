@@ -1,0 +1,1009 @@
+{
+	"info": {
+		"_postman_id": "b502266c-9090-46aa-9e19-96aa566bbfc3",
+		"name": "ticket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "18723456-b502266c-9090-46aa-9e19-96aa566bbfc3"
+	},
+	"item": [
+		{
+			"name": "Get Customer with Id=1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52de944a-48df-49e6-b447-0d5fb3ff867c",
+						"exec": [
+							"pm.test(\"Set Customer 1 to the collection variable\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.collectionVariables.set(\"customer1\", JSON.stringify(jsonData));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "5a034d32-d799-450f-860a-692bf287d1d5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{customers-url}}/1",
+					"host": [
+						"{{customers-url}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer with Id=2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb9beec6-d8c6-4331-8428-c6e5b4cafb2f",
+						"exec": [
+							"pm.test(\"Set Customer 2 to the collection variable\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.collectionVariables.set(\"customer2\", JSON.stringify(jsonData));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "150b174b-0894-42aa-bcd7-44340caaa289",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{customers-url}}/2",
+					"host": [
+						"{{customers-url}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer with Id=3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5af602bb-9364-4c04-a993-2099d2a55347",
+						"exec": [
+							"pm.test(\"Set Customer 3 to the collection variable\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.collectionVariables.set(\"customer3\", JSON.stringify(jsonData));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a9ca4960-5939-4cb6-9f1d-7c30e80304d2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{customers-url}}/3",
+					"host": [
+						"{{customers-url}}"
+					],
+					"path": [
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket 1 for Customer 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "414b5180-56fa-4bb3-960a-a83b978b5ba5",
+						"exec": [
+							"pm.test(\"Ticket 1 for Customer 1 Creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "e3c059e5-1734-4567-ae9a-40bcb60829dd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"customerId\" : 1,\r\n    \"receivedDate\": \"2022-12-01\",\r\n    \"scheduledDatetime\": \"2022-12-17T10:15:30\",\r\n    \"ticketStatus\": null,\r\n    \"type\": \"LIMITED_CONNECTIVITY\",\r\n    \"estimatedCost\": 100.00,\r\n    \"address\": \"Kifisias 31\",\r\n    \"description\": \"New Installation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}",
+					"host": [
+						"{{tickets-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket 2 for Customer 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f0bf059-d5f4-48c6-ad0d-9d474d85a5c8",
+						"exec": [
+							"pm.test(\"Ticket 2 for Customer 1 Creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "80f64893-a92c-4412-9de2-ab172f82c0f3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"customerId\" : 1,\r\n    \"receivedDate\": \"2022-12-06\",\r\n    \"scheduledDatetime\": \"2022-12-19T10:15:30\",\r\n    \"ticketStatus\": null,\r\n    \"type\": \"BROKEN_LINE\",\r\n    \"estimatedCost\": 100.00,\r\n    \"address\": \"Kifisias 31\",\r\n    \"description\": \"New Installation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}",
+					"host": [
+						"{{tickets-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket 3 for Customer 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9028ed4f-7cd9-4738-9f17-c22eee81df7b",
+						"exec": [
+							"pm.test(\"Ticket 3 for Customer 1 Creation\", function () {\r",
+							"   var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "2b4a5b69-a0a8-4d75-9656-2c2acb32a1da",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"customerId\" : 1,\r\n    \"receivedDate\": \"2022-12-10\",\r\n    \"scheduledDatetime\": \"2022-12-20T15:12:56\",\r\n    \"ticketStatus\": \"DELETED\",\r\n    \"type\": \"BROKEN_LINE\",\r\n    \"estimatedCost\": 150.00,\r\n    \"address\": \"Kifisias 31\",\r\n    \"description\": \"Broken Line fixing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}",
+					"host": [
+						"{{tickets-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket 4 for Customer 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d85177e-cb11-4f7a-ae16-cbf3babb48bf",
+						"exec": [
+							"pm.test(\"Ticket 4 for Customer 2 Creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "5ba67e76-2091-4f01-b78f-70ae8eb8e8d5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"customerId\" : 2,\r\n    \"receivedDate\": \"2022-12-05\",\r\n    \"scheduledDatetime\": \"2022-12-22T15:12:56\",\r\n    \"ticketStatus\": \"COMPLETED\",\r\n    \"type\": \"BROKEN_LINE\",\r\n    \"estimatedCost\": 150.00,\r\n    \"address\": \"Kifisias 31\",\r\n    \"description\": \"Broken Line fixing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}",
+					"host": [
+						"{{tickets-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket 5 for Customer 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f891fc96-9d3e-44aa-8e90-b1430df93768",
+						"exec": [
+							"pm.test(\"Ticket 5 for Customer 2 Creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(5);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "4dffd62c-6bdb-4d39-b6b0-319491e9bcb8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"customerId\" : 2,\r\n    \"receivedDate\": \"2022-12-05\",\r\n    \"scheduledDatetime\": \"2022-12-30T14:12:56\",\r\n    \"ticketStatus\": null,\r\n    \"type\": \"LIMITED_CONNECTIVITY\",\r\n    \"estimatedCost\": 150.00,\r\n    \"address\": \"Kifisias 31\",\r\n    \"description\": \"Broken Line fixing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}",
+					"host": [
+						"{{tickets-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket 6 for Customer 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13200789-be66-4d0c-ae2c-a205841bfe5c",
+						"exec": [
+							"pm.test(\"Ticket 1 for Customer 3 Creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "822d1a07-aa4a-42fa-882b-a013dacbf188",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"customerId\" : 3,\r\n    \"receivedDate\": \"2022-12-09\",\r\n    \"scheduledDatetime\": \"2023-01-30T15:12:56\",\r\n    \"ticketStatus\": \"COMPLETED\",\r\n    \"type\": \"LIMITED_CONNECTIVITY\",\r\n    \"estimatedCost\": 150.00,\r\n    \"address\": \"Kifisias 31\",\r\n    \"description\": \"Broken Line fixing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}",
+					"host": [
+						"{{tickets-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ticket with Id = 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca4017a3-ea1f-4514-a03b-12a2f6f42bb5",
+						"exec": [
+							"pm.test(\"Search Ticket with Id = 1\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b69ca111-a8f4-48d3-8609-9aa3ca8782c2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}/1",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ticket with Id = 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bce24ca5-63f1-4ee1-9dba-44c835369fac",
+						"exec": [
+							"pm.test(\"Search Ticket with Id = 4\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "6e8beb6f-8562-4db8-9bf6-c93e93a2a1af",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}/4",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ticket with Id = 6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc87fcb7-c6a4-4dc7-862a-981def3a0f1e",
+						"exec": [
+							"pm.test(\"Search Ticket with Id = 6\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "abdcb1f2-5ee0-400b-90a2-f69be40e99e3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}/6",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ticket with Id = 7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f95feef1-58d3-4c16-a76b-05442b150b2c",
+						"exec": [
+							"pm.test(\"Search Ticket with Id = 7 (Doesn't Exist)\", () => {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData).to.eql(null);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a55674b9-5349-41f9-9132-82563cf280b7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}/7",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Tickets With CustomerId = 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df486174-5489-4ab1-a9ba-40ccca04e472",
+						"exec": [
+							"pm.test(\"Search Customers with email-2\", function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        // let expectedEmail = pm.collectionVariables.get(\"email-2\");\r",
+							"        // console.log(expectedEmail + \" startsWith : \" + jsonData[i].email);\r",
+							"        pm.expect(jsonData[i].customerId).to.be.eql(1);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3728b770-d43f-49e4-8e6d-90fe00ce6a5f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}?customerId=1",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Tickets With receivedDate = singleDateSearch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "98ae468e-9d27-40b6-a3bb-11d92c4dacac",
+						"exec": [
+							"let singleDateSearch = pm.collectionVariables.get(\"singleDateSearch\");\r",
+							"pm.test(\"Search Tickets with StartDate = \" + singleDateSearch, function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        // console.log(expectedEmail + \" startsWith : \" + jsonData[i].email);\r",
+							"        pm.expect(jsonData[i].receivedDate).to.be.eql(singleDateSearch);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "1f8fc9b8-cb88-483b-a429-a4bd11d0c25d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}?startDate={{singleDateSearch}}",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "endDate",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "startDate",
+							"value": "{{singleDateSearch}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Tickets with StartDate and EndDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d74f305c-fc3d-4ed4-9a54-4aa929c7cfed",
+						"exec": [
+							"let startDateString = pm.collectionVariables.get(\"startDateSearch\");\r",
+							"let endDateString = pm.collectionVariables.get(\"endDateSearch\");\r",
+							"\r",
+							"pm.test(\"Search Tickets with StartDate = \" + startDateString + \" and endDate = \" + endDateString, function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    let startDate = new Date(startDateString);\r",
+							"    let endDate = new Date(endDateString);\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        // console.log(expectedEmail + \" startsWith : \" + jsonData[i].email);\r",
+							"        let ticketDate = new Date(jsonData[i].receivedDate);\r",
+							"        let ticketDateIsBetween = ticketDate >= startDate && ticketDate <= endDate;\r",
+							"        pm.expect(ticketDateIsBetween).to.be,true;\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b8113b53-14b7-4328-995f-bb7f9a34a1d4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}?startDate={{startDateSearch}}&endDate={{endDateSearch}}",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "startDate",
+							"value": "{{startDateSearch}}"
+						},
+						{
+							"key": "endDate",
+							"value": "{{endDateSearch}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Tickets with CustomerIdSearch-2, StartDate & EndDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3e44516-771c-4a0c-9910-d562e6d6a130",
+						"exec": [
+							"let startDateString = pm.collectionVariables.get(\"startDateSearch\");\r",
+							"let endDateString = pm.collectionVariables.get(\"endDateSearch\");\r",
+							"let customerIdString = pm.collectionVariables.get(\"customerIdSearch-2\");\r",
+							"pm.test(\"Search Tickets with StartDate = \" + startDateString + \" and endDate = \" + endDateString, function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    let startDate = new Date(startDateString);\r",
+							"    let endDate = new Date(endDateString);\r",
+							"    let customerId = parseInt(customerIdString);\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        let ticketDate = new Date(jsonData[i].receivedDate);\r",
+							"        let ticketDateIsBetween = ticketDate >= startDate && ticketDate <= endDate;\r",
+							"        pm.expect(ticketDateIsBetween).to.be,true;\r",
+							"        pm.expect(jsonData[i].customerId).to.be.equal(customerId);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b860d7aa-bae6-4cc3-99fd-6c12d51f9ef4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}?customerId={{customerIdSearch-2}}&startDate={{startDateSearch}}&endDate={{endDateSearch}}",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "{{customerIdSearch-2}}"
+						},
+						{
+							"key": "startDate",
+							"value": "{{startDateSearch}}"
+						},
+						{
+							"key": "endDate",
+							"value": "{{endDateSearch}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Ticket with Id = 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9564007f-9e31-4b55-a562-b05d81b6f142",
+						"exec": [
+							"pm.test(\"Delete Ticket with Id = 1\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.ticketStatus).to.be.equal(\"DELETED\");\r",
+							"    pm.expect(jsonData.id).to.be.equal(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "23938a56-37c1-41ad-ac4f-b1c3499ab6e8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}/1",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Ticket with Id = 6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99623c9f-821b-47e4-8ee5-8e90a619ffd0",
+						"exec": [
+							"pm.test(\"Delete Ticket with id = 6\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.ticketStatus).to.be.equal(\"DELETED\");\r",
+							"    pm.expect(jsonData.id).to.be.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "f5560a98-3e21-474d-949a-aaec4bbc97ad",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"customerDto\" : {{customer3}},\r\n    \"receivedDate\": null,\r\n    \"scheduledDatetime\": \"2022-12-05T15:12:56\",\r\n    \"status\": \"COMPLETE\",\r\n    \"type\": \"LIMITEDCONNECTIVITY\",\r\n    \"estimatedCost\": 150.00,\r\n    \"address\": \"Kifisias 31\",\r\n    \"description\": \"Broken Line fixing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{tickets-url}}/6",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ticket with Id = 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33713fc8-5685-4985-af72-9eb5ee34c6a5",
+						"exec": [
+							"pm.test(\"Search Ticket with Id = 1 (Now DELETED)\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.ticketStatus).to.be.equal(\"DELETED\");\r",
+							"    pm.expect(jsonData.id).to.be.equal(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "f652425d-9309-4be0-bb87-4071d0e0428e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}/1",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ticket with Id = 6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29180ded-1f31-4dc5-9cb0-fb65e2b54198",
+						"exec": [
+							"pm.test(\"Search Ticket with Id = 6 (Now DELETED)\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.ticketStatus).to.be.equal(\"DELETED\");\r",
+							"    pm.expect(jsonData.id).to.be.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "965d7e44-19d1-4c78-aa9a-da020e70fa2b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{tickets-url}}/6",
+					"host": [
+						"{{tickets-url}}"
+					],
+					"path": [
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0a9a438f-b2c4-41f9-8e28-5f2f308c136e",
+				"type": "text/javascript",
+				"exec": [
+					"// var jsonData = pm.response.json();",
+					"// pm.collectionVariables.set(\"customer1\", jsonData);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8d89a420-c6e7-4b45-b6e3-85e4d6147704",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "08d83674-9407-4b71-922d-86d840d48246",
+			"key": "customer1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "e2128efb-af35-408b-aa70-98025656afbd",
+			"key": "customer2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "102311ec-3a21-40a4-b6cf-ad68fa823ba7",
+			"key": "customer3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "ebbe7e82-5b10-4eba-8c11-52cb6412703e",
+			"key": "customers-url",
+			"value": "http://localhost:8080/fibernow/api/v1/customers",
+			"type": "string"
+		},
+		{
+			"id": "1fe485f5-5b09-47c9-83b8-a0b73710b12e",
+			"key": "tickets-url",
+			"value": "http://localhost:8080/fibernow/api/v1/tickets",
+			"type": "string"
+		},
+		{
+			"id": "fea0f299-9cf9-44bb-a7ec-3dd9fc850530",
+			"key": "singleDateSearch",
+			"value": "2022-12-05",
+			"type": "string"
+		},
+		{
+			"id": "7efda355-28d3-4039-a636-e4ea9d4ec6bc",
+			"key": "startDateSearch",
+			"value": "2022-12-01",
+			"type": "string"
+		},
+		{
+			"id": "a415a409-314c-4491-8438-e3d6e7f12ddf",
+			"key": "endDateSearch",
+			"value": "2022-12-06",
+			"type": "string"
+		},
+		{
+			"id": "9d10a1d0-5850-4f5b-a1dc-adae41d8fabd",
+			"key": "customerIdSearch-2",
+			"value": "1"
+		}
+	]
+}

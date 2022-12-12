@@ -1,0 +1,482 @@
+{
+	"info": {
+		"_postman_id": "d823a3bd-8045-40e6-92e4-0ca1fa618f20",
+		"name": "customer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "18723456-d823a3bd-8045-40e6-92e4-0ca1fa618f20"
+	},
+	"item": [
+		{
+			"name": "Create Customer 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e3b5c94-645b-46ad-ba74-680a0a9f88c5",
+						"exec": [
+							"pm.test(\"Customer 1 creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "86c528b6-8e5f-4ea7-9b9d-6f8194220846",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"tin\": \"1243242114\",\r\n    \"name\": \"Ioannis\",\r\n    \"surname\": \"Papadopoulos\",\r\n    \"address\": \"Kifisias 31\",\r\n    \"phoneNumber\": [\r\n        \"6983458716\"\r\n    ],\r\n    \"email\": \"ioannis.papadopoulos@gmail.com\",\r\n    \"username\": \"ioannispapadopoulos\",\r\n    \"password\": \"password\",\r\n    \"status\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customers-url}}",
+					"host": [
+						"{{customers-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23a38f31-87c8-47b3-93fd-767deaea91d5",
+						"exec": [
+							"pm.test(\"Customer 2 creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b138ed57-a9ec-4003-b580-759b18ebe6b9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"tin\": \"1242424\",\r\n    \"name\": \"Ioannis\",\r\n    \"surname\": \"Konstantinou\",\r\n    \"address\": \"Kifisias 32\",\r\n    \"phoneNumber\": [\r\n        \"6983458743\"\r\n    ],\r\n    \"email\": \"ioannis.konstantinou@gmail.com\",\r\n    \"username\": \"ioannis.konstantinou\",\r\n    \"password\": \"password\",\r\n    \"status\": null,\r\n    \"tickets\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customers-url}}",
+					"host": [
+						"{{customers-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1325d754-2c9b-4be7-a4da-7932cb25ba9b",
+						"exec": [
+							"pm.test(\"Customer 3 creation\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "cad08f95-578a-420a-8945-708acfacfd91",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"tin\": \"13235255\",\r\n    \"name\": \"Leonidas\",\r\n    \"surname\": \"Linas\",\r\n    \"address\": \"Kifisias 33\",\r\n    \"phoneNumber\": [\r\n        \"6983458223\"\r\n    ],\r\n    \"email\": \"leonidas.linas@gmail.com\",\r\n    \"username\": \"leonidas.lin\",\r\n    \"password\": \"password\",\r\n    \"status\": null,\r\n    \"tickets\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customers-url}}",
+					"host": [
+						"{{customers-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer with Id = 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb1af191-f8b6-48c7-934b-5edda0018b62",
+						"exec": [
+							"pm.test(\"Search Customer with Id = 2\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    var jsonData = jsonResponse.data;\r",
+							"    pm.expect(jsonData.id).to.be.equal(2);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "d7af920a-9464-475a-8855-6258577f3f91",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customers-url}}/2",
+					"host": [
+						"{{customers-url}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Customer with tin-1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a04b2ed-eb24-4d75-bb0f-0c6e803fe532",
+						"exec": [
+							"pm.test(\"Search Customers with tin-1\", function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        let expectedTin = pm.collectionVariables.get(\"tin-1\");\r",
+							"        console.log(expectedTin + \" startsWith : \" + jsonData[i].tin);\r",
+							"        if(!jsonData[i].tin.startsWith(expectedTin)) {\r",
+							"            pm.expect.fail();\r",
+							"        }\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "54542c70-f185-4602-9b1e-a5829bfcd23a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customers-url}}?tin={{tin-1}}",
+					"host": [
+						"{{customers-url}}"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "jhon@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "tin",
+							"value": "{{tin-1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Customer with tin-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10a25741-47fc-491a-9b78-f01d023fa863",
+						"exec": [
+							"pm.test(\"Search Customers with tin-2\", function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        let expectedTin = pm.collectionVariables.get(\"tin-2\");\r",
+							"        console.log(expectedTin + \" startsWith : \" + jsonData[i].tin);\r",
+							"        if(!jsonData[i].tin.startsWith(expectedTin)) {\r",
+							"            pm.expect.fail();\r",
+							"        }\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "76091d87-7bf4-4f3c-a477-347015401178",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customers-url}}?tin={{tin-2}}",
+					"host": [
+						"{{customers-url}}"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "jhon@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "tin",
+							"value": "{{tin-2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Customer with email-1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6192c733-4bd0-4603-9eab-99fc46fb677c",
+						"exec": [
+							"pm.test(\"Search Customers with email-1\", function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        let expectedEmail = pm.collectionVariables.get(\"email-1\");\r",
+							"        console.log(expectedEmail + \" startsWith : \" + jsonData[i].email);\r",
+							"        if(!jsonData[i].email.startsWith(expectedEmail)) {\r",
+							"            pm.expect.fail();\r",
+							"        }\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "6b3dff2a-7b2c-475c-84a1-c4118b9e8826",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customers-url}}?email={{email-1}}",
+					"host": [
+						"{{customers-url}}"
+					],
+					"query": [
+						{
+							"key": "tin",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "{{email-1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Customer with email-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff8f7983-9453-4ef5-b6af-ae2eb0fa0019",
+						"exec": [
+							"pm.test(\"Search Customers with email-2\", function () {\r",
+							"    let jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    for(let i = 0; i < jsonData.length; i++) {\r",
+							"        let expectedEmail = pm.collectionVariables.get(\"email-2\");\r",
+							"        console.log(expectedEmail + \" startsWith : \" + jsonData[i].email);\r",
+							"        if(!jsonData[i].email.startsWith(expectedEmail)) {\r",
+							"            pm.expect.fail();\r",
+							"        }\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "16635a6f-222b-4495-8c26-1511a8addf46",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{customers-url}}?email={{email-2}}",
+					"host": [
+						"{{customers-url}}"
+					],
+					"query": [
+						{
+							"key": "tin",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "{{email-2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Customer with customerId-delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b922b82-e474-4d55-8c53-895a10a2204a",
+						"exec": [
+							"pm.test(\"Delete customer with customerId-delete\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    let jsonData = jsonResponse.data;\r",
+							"    let customerIdString = pm.collectionVariables.get(\"customerId-delete\");\r",
+							"    let customerId = parseInt(customerIdString);\r",
+							"    pm.expect(jsonData.userStatus).to.be.equal(\"DELETED\");\r",
+							"    pm.expect(jsonData.id).to.be.equal(customerId);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9a97746d-113f-4a0d-bfa5-a0895f0128d0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{customers-url}}/{{customerId-delete}}",
+					"host": [
+						"{{customers-url}}"
+					],
+					"path": [
+						"{{customerId-delete}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9f3a6bd8-188e-4e9a-8f44-444ba265a590",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "402205d4-7f36-4a76-8e1b-7fe27bac002c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e1a997ec-f0ea-4c1d-a729-6edc295d75fc",
+			"key": "customers-url",
+			"value": "http://localhost:8080/fibernow/api/v1/customers",
+			"type": "string"
+		},
+		{
+			"id": "e3250bc8-23e1-488c-a81d-4c644e540137",
+			"key": "tin-1",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"id": "d49a9e11-8366-4146-8aeb-ef392b4dbe87",
+			"key": "tin-2",
+			"value": "132",
+			"type": "string"
+		},
+		{
+			"id": "c476c13c-9f97-47f0-9161-38cc9f85607f",
+			"key": "email-1",
+			"value": "leonidas.linas@gmail.com"
+		},
+		{
+			"id": "c1d1b261-a7b8-47f2-bdc1-2f3f3b7bda73",
+			"key": "email-2",
+			"value": "ioannis.konstantinou@gmail.com"
+		},
+		{
+			"id": "5cf0153e-22ec-4dbf-bb1d-73f5c6c8ead8",
+			"key": "customerId-delete",
+			"value": "2"
+		}
+	]
+}
