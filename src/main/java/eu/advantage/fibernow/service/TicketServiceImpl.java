@@ -75,6 +75,7 @@ public class TicketServiceImpl implements TicketService{
         }
         Customer customer = toDomain(customerService.findCustomer(customerId));
         List<Ticket> tickets = new ArrayList<>(customer.getTickets());
+        tickets.forEach(ticket -> ticket.setCustomer(customer));
         if(startDate == null) {
             return tickets
                     .stream()

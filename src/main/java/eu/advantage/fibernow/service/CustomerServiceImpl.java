@@ -131,12 +131,14 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Set<Ticket> tickets = found.getTickets();
-        tickets.forEach(ticket -> {
-            TicketStatus status = ticket.getTicketStatus();
-            if ( status != TicketStatus.DELETED && status != TicketStatus.COMPLETED) {
-                throw new BusinessException(BZ_ERROR_1007, id);
-            }
-        });
+        if (tickets != null) {
+            tickets.forEach(ticket -> {
+                TicketStatus status = ticket.getTicketStatus();
+                if ( status != TicketStatus.DELETED && status != TicketStatus.COMPLETED) {
+                    throw new BusinessException(BZ_ERROR_1007, id);
+                }
+            });
+        }
 
         //Soft Delete
         found.setUserStatus(UserStatus.DELETED);
