@@ -25,14 +25,9 @@ public class TicketRepositoryImpl extends AbstractRepository<Ticket, Long> imple
         CriteriaQuery<Ticket> criteriaQuery = builder.createQuery(Ticket.class);
         Root<Ticket> root = criteriaQuery.from(Ticket.class);
 
-        Predicate date =  builder.between(root.get("receivedDate"), root.<LocalDate>get("startDate"), root.<LocalDate>get("endDate"));
-        criteriaQuery.select(root).where(date);
+        criteriaQuery.select(root).where(builder.between(root.get("receivedDate"), startDate, endDate));
 
-        TypedQuery<Ticket> typedQuery = em.createQuery(criteriaQuery);
-        typedQuery.setParameter("startDate", startDate);
-        typedQuery.setParameter("endDate", endDate);
-
-        return typedQuery.getResultList();
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
     @Override
