@@ -11,7 +11,6 @@ import eu.advantage.fibernow.repository.TicketRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 
 
 import java.time.LocalDate;
@@ -23,7 +22,6 @@ import static eu.advantage.fibernow.converter.DtoToDomainConverter.*;
 import static eu.advantage.fibernow.exception.ExceptionStatus.*;
 
 @Stateless
-@Slf4j
 public class TicketServiceImpl implements TicketService{
 
     @Inject
@@ -36,7 +34,6 @@ public class TicketServiceImpl implements TicketService{
     @Transactional
     public TicketDto saveTicket(TicketDto dto) throws BusinessException{
         Ticket ticket = toDomain(dto);
-        log.info("Called saveTicket() with TicketDto : {}", dto);
         Customer customer = toDomain(customerService.findCustomer(dto.getCustomerId()));
         ticket.setCustomer(customer);
         if (ticket.getId() == null) {
@@ -47,15 +44,12 @@ public class TicketServiceImpl implements TicketService{
                 ticket.setTicketStatus(TicketStatus.STANDBY);
             }
             ticketRepository.create(ticket);
-            log.info("Ticket {} - Created.", ticket);
         } else {
             Ticket found = ticketRepository.findById(ticket.getId());
             if (found == null) {
-                log.error("Trying to update Ticket : {} - This Ticket doesn't exist.", ticket);
                 throw new BusinessException(BZ_ERROR_2001, ticket.getId());
             }
             ticketRepository.update(ticket);
-            log.info("Ticket : {} - Updated.", ticket);
         }
         addTicketToCustomer(ticket);
         return toDto(ticket);
@@ -63,22 +57,16 @@ public class TicketServiceImpl implements TicketService{
 
     @Override
     public TicketDto findTicket(Long ticketId) throws BusinessException{
-        log.info("Called findTicket() with Ticket Id : {}", ticketId);
         Ticket ticket = ticketRepository.findById(ticketId);
         if (ticket == null) {
-            log.error("Ticket with Id : {} - Not found.",ticketId);
             throw new BusinessException(BZ_ERROR_2001, ticketId);
         }
-        log.info("Ticket {} - Found.", ticket);
         return toDto(ticket);
     }
 
     @Override
     public List<TicketDto> searchTickets(Long customerId, LocalDate startDate, LocalDate endDate) throws BusinessException{
-        log.info("Called searchTickets() with Customer Id = {}, StartDate = {} and EndDate = {}.",
-                customerId, startDate, endDate);
         if (customerId == null) {
-            log.info("Going to search for Tickets only with Start Date and End Date - Customer Id is null.");
             return filterByDates(startDate, endDate)
                     .stream()
                     .map(DomainToDtoConverter::toDto)
@@ -88,14 +76,13 @@ public class TicketServiceImpl implements TicketService{
         List<Ticket> tickets = new ArrayList<>(customer.getTickets());
         tickets.forEach(ticket -> ticket.setCustomer(customer));
         if(startDate == null) {
-            log.info("Going to search for Tickets only with Customer Id = {} - startDate is null.", customerId);
             return tickets
                     .stream()
                     .map(DomainToDtoConverter::toDto)
                     .collect(Collectors.toList());
         }
-        log.info("Going to call filterByDates with startDate = {}, endDate = {} and tickets = {}.", startDate, endDate, tickets);
-        return filterByDates(startDate, endDate, tickets)
+        tickets = filterByDates(startDate, endDate, tickets);
+        return tickets
                 .stream()
                 .map(DomainToDtoConverter::toDto)
                 .collect(Collectors.toList());
@@ -104,42 +91,33 @@ public class TicketServiceImpl implements TicketService{
     @Override
     @Transactional
     public TicketDto deleteTicket(Long id) throws BusinessException{
-        log.info("Called deleteTicket() with Id = {}", id);
         Ticket found;
         found = ticketRepository.findById(id);
         if (found == null) {
-            log.error("Failed to delete Ticket with Id = {} - This ticket does not exist", id);
             throw new BusinessException(BZ_ERROR_2001, id);
         }
         //Soft Delete
         found.setTicketStatus(TicketStatus.DELETED);
         ticketRepository.update(found);
-        log.info("Deleted : Ticket {}", found);
         return toDto(found);
     }
 
     private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate) throws BusinessException{
-        log.info("Called filterByDates() with startDate = {} and endDate = {}", startDate, endDate);
         if(startDate != null && endDate != null) {
-            log.info("findTicketsBetweenDates() is called with startDate = {} and endDate = {}", startDate, endDate);
             return ticketRepository.findTicketsBetweenDates(startDate, endDate);
         } else if(startDate != null){
-            log.info("findTicketsBetweenDates() is called with startDate = endDate = {}", startDate);
             return ticketRepository.findTicketsBetweenDates(startDate, startDate);
         } else {
-            log.debug("In filterByDates() - Error: startDate is null");
             throw new BusinessException(BZ_ERROR_2003);
         }
     }
 
     private List<Ticket> filterByDates(LocalDate startDate, LocalDate endDate, List<Ticket> tickets) throws BusinessException{
-        log.info("Called filterByDates() with startDate = {} , endDate = {} and tickets = {}", startDate, endDate, tickets);
         if (startDate == null) {
             return tickets;
         }
         if(endDate != null) {
             if(endDate.isBefore(startDate)) {
-                log.error("In filterByDates - Error : endDate : {} is before startDate : {}", endDate, startDate);
                 throw new BusinessException(BZ_ERROR_2002, startDate.toString(), endDate.toString());
             }
             return tickets.stream()
