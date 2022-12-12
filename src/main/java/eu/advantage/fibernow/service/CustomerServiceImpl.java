@@ -9,10 +9,12 @@ import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.UserStatus;
 import eu.advantage.fibernow.model.enums.TicketStatus;
 import eu.advantage.fibernow.repository.CustomerRepository;
+import eu.advantage.fibernow.repository.GenericRepository;
 import eu.advantage.fibernow.repository.TicketRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
@@ -27,7 +29,7 @@ import static eu.advantage.fibernow.exception.ExceptionStatus.*;
 
 @Stateless
 @Slf4j
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl extends AbstractUserService<Customer> implements CustomerService {
 
     @Inject
     private CustomerRepository customerRepository;
@@ -170,5 +172,10 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.update(found);
         log.info("Deleted : Customer {}", found);
         return toDto(found);
+    }
+
+    @Override
+    public GenericRepository<Customer, Long> getRepository() {
+        return customerRepository;
     }
 }

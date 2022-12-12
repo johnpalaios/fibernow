@@ -8,6 +8,7 @@ import eu.advantage.fibernow.service.TicketService;
 import static eu.advantage.fibernow.util.rest.ResponseUtils.*;
 
 import eu.advantage.fibernow.util.rest.ApiResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -30,6 +31,7 @@ public class TicketResource {
 
         @GET
         @Path("/{id}")
+        @RolesAllowed("ADMIN")
         public Response getById(@PathParam("id") Long id) {
             return Response
                     .status(Response.Status.ACCEPTED)
@@ -38,6 +40,7 @@ public class TicketResource {
         }
 
         @GET
+        @RolesAllowed("ADMIN")
         public Response search(@QueryParam("customerId") Long customerId, @QueryParam("startDate") String startDateString,
                                @QueryParam("endDate") String endDateString) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -57,6 +60,7 @@ public class TicketResource {
         }
 
         @POST
+        @RolesAllowed("ADMIN")
         public Response save(@Valid TicketDto ticketDto) {
             TicketDto result = service.saveTicket(ticketDto);
             return Response.created(UriBuilder
@@ -70,6 +74,7 @@ public class TicketResource {
 
         @DELETE
         @Path("/{id}")
+        @RolesAllowed("ADMIN")
         public Response delete(@PathParam("id") Long id) {
 
             return Response

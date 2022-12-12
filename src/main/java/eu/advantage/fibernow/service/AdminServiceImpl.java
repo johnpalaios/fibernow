@@ -5,6 +5,7 @@ import eu.advantage.fibernow.exception.ExceptionStatus;
 import eu.advantage.fibernow.model.Admin;
 import eu.advantage.fibernow.model.enums.UserStatus;
 import eu.advantage.fibernow.repository.AdminRepository;
+import eu.advantage.fibernow.repository.GenericRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -12,7 +13,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Stateless
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends AbstractUserService<Admin> implements AdminService {
 
     @Inject
     AdminRepository repository;
@@ -50,5 +51,10 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public void deleteAdmin(Admin admin) {
         repository.delete(admin);
+    }
+
+    @Override
+    public GenericRepository<Admin, Long> getRepository() {
+        return repository;
     }
 }

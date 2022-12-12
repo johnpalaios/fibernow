@@ -2,6 +2,7 @@ package eu.advantage.fibernow.bootstrap;
 
 import eu.advantage.fibernow.dto.CustomerDto;
 import eu.advantage.fibernow.model.Admin;
+import eu.advantage.fibernow.model.UserCredentials;
 import eu.advantage.fibernow.model.enums.UserStatus;
 import eu.advantage.fibernow.service.AdminService;
 import eu.advantage.fibernow.service.CustomerService;
@@ -28,12 +29,15 @@ public class Initializer {
         List<Admin> found = service.findAll();
         if (found.isEmpty()) {
             Admin admin = new Admin();
-            admin.setUsername("admin");
-            admin.setPassword("admin");
+            UserCredentials credentials = new UserCredentials();
+            credentials.setUsername("admin");
+            credentials.setPassword("admin");
+            admin.setCredentials(credentials);
             admin.setUserStatus(UserStatus.ACTIVE);
             service.saveAdmin(admin);
-        log.info("Admin " + admin + " was created successfully");
+            log.info("Admin " + admin + " was created successfully");
+        } else {
+            log.info("Admin account(s) already exist(s) in the DB.");
         }
-        log.info("Admin account(s) already exist(s) in the DB.");
     }
 }

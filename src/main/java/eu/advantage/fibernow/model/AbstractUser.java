@@ -1,10 +1,7 @@
 package eu.advantage.fibernow.model;
 
 import eu.advantage.fibernow.model.enums.UserStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,10 +13,11 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 public abstract class AbstractUser extends AbstractEntity{
-    @Column(name = "username")
-    private String username;
-    @Column(name = "password")
-    private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private UserCredentials credentials;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
@@ -29,11 +27,11 @@ public abstract class AbstractUser extends AbstractEntity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AbstractUser that = (AbstractUser) o;
-        return Objects.equals(getUsername(), that.getUsername());
+        return Objects.equals(getCredentials(), that.getCredentials());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUsername());
+        return Objects.hash(getCredentials());
     }
 }
