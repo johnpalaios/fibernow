@@ -1,0 +1,93 @@
+body {
+    height: 100vh;
+    background: linear-gradient(150deg, #FFFFFF, #227acc);
+} 
+
+
+.container {
+    margin: 10px;
+}
+
+h2 {
+    color: rgb(7, 115, 182);
+}
+
+input[type=password] {
+    margin: 10px 0;
+    border: 1px solid lightskyblue;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    /* display: block; */
+    /* width: 50%; */
+    /* padding: 10px 20px; */
+    margin: 10px 0;
+    border: 1px solid lightskyblue;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+
+input[type=text] {
+  /* display: block; */
+  /* width: 50%; */
+  /* padding: 10px 20px; */
+  margin: 10px 0;
+  border: 1px solid lightskyblue;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type=datetime-local] {
+    margin: 10px 0;
+    border: 1px solid lightskyblue;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    margin: 10px 0;
+    border: 1px solid lightskyblue;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type=number] {
+    margin: 10px 0;
+    border: 1px solid lightskyblue;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type=date] {
+  margin: 10px 0;
+  border: 1px solid lightskyblue;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type=email] {
+  margin: 10px 0;
+  border: 1px solid lightskyblue;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input:focus {
+    outline:none;
+    border: 1px solid rgb(7, 115, 182);
+}
+
+
+.text-success {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+.text-danger {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
