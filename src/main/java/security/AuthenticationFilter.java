@@ -14,11 +14,13 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.util.*;
 
 @Provider
+@Slf4j
 public class AuthenticationFilter implements ContainerRequestFilter {
     private static final String AUTHORIZATION_PROPERTY = "Authorization";
     private static final String AUTHENTICATION_SCHEME = "Basic";
@@ -79,10 +81,12 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
     private boolean isUserAllowed(final String username, final String password, final Set<String> rolesSetExpected) {
         if (rolesSetExpected.contains("ADMIN")) {
+            log.info("Trying to check if user with Username : {} and Password : {} is an Admin!", username, password);
             Admin admin = adminUserService.login(username, password);
             return admin != null;
         }
         if (rolesSetExpected.contains("CUSTOMER")) {
+            log.info("Trying to check if user with Username : {} and Password : {} is a Customer!", username, password);
             Customer customer = customerUserService.login(username, password);
             return customer != null;
         }

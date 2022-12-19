@@ -9,10 +9,12 @@ import eu.advantage.fibernow.repository.GenericRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Stateless
+@Slf4j
 public class AdminServiceImpl extends AbstractUserService<Admin> implements AdminService {
 
     @Inject
@@ -34,6 +36,7 @@ public class AdminServiceImpl extends AbstractUserService<Admin> implements Admi
             }
             repository.update(admin);
         }
+        log.info("Admin " + admin + " was created successfully");
         return admin;
     }
 

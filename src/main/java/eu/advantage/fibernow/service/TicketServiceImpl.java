@@ -57,7 +57,7 @@ public class TicketServiceImpl implements TicketService{
             ticketRepository.update(ticket);
             log.info("Ticket : {} - Updated.", ticket);
         }
-        addTicketToCustomer(ticket);
+//        addTicketToCustomer(ticket);
         return toDto(ticket);
     }
 

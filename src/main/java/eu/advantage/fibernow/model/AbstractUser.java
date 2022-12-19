@@ -12,7 +12,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AbstractUser extends AbstractEntity{
+public abstract class AbstractUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
+    @SequenceGenerator(name = "seq_user", allocationSize = 1)
+    @Column(name = "id")
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
