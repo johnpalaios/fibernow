@@ -39,7 +39,13 @@ public class TicketServiceImpl implements TicketService{
     public TicketDto saveTicket(TicketDto dto) throws BusinessException{
         Ticket ticket = toDomain(dto);
         log.info("Called saveTicket() with TicketDto : {}", dto);
-        Customer customer = toDomain(customerService.findCustomer(dto.getCustomerId()));
+        CustomerDto customerDto;
+        try {
+            customerDto = customerService.findCustomer(dto.getCustomerId());
+        } catch(Exception e) {
+            throw new BusinessException(BZ_ERROR_1001, dto.getCustomerId());
+        }
+        Customer customer = toDomain(customerDto);
         if(customer.getUserStatus() == UserStatus.DELETED || customer.getUserStatus() == UserStatus.INACTIVE) {
             throw new BusinessException(BZ_ERROR_2004, ticket.getId(), customer.getId());
         }
