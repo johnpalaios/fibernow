@@ -26,25 +26,28 @@ public abstract class AbstractUserService<T extends AbstractUser> implements Use
         }
         return null;
     }
-
     @Override
     public T login(String username, String password) {
-        log.info("Try to Login with Username : {} ", username);
+        log.info("Try to Login with Username : {}", username);
         T user = getUserByUsername(username);
         if (user != null) {
             String pass = user.getCredentials().getPassword();
+            log.info("Try to check if given password : {} is the same as the password in the DB : {}", password, pass);
             if (!pass.equals(password)) {
-                throw new BusinessException(ExceptionStatus.BZ_ERROR_4002, user.getId());
+                log.info("This user.getId() : {}", user.getId());
+                throw new BusinessException(ExceptionStatus.BZ_ERROR_4002, username);
             }
         }
         return user;
     }
-
     private Long getIdByUsername(String username) {
-        UserCredentials credentials = userRepository.getCredentialsByUsername(username);
-        if (credentials == null) {
+        log.info("GetIdByUsername({})", username);
+        try{
+            UserCredentials credentials = userRepository.getCredentialsByUsername(username);
+            return credentials.getId();
+        } catch (Exception e){
             throw new BusinessException(ExceptionStatus.BZ_ERROR_4001, username);
         }
-        return credentials.getId();
     }
+
 }

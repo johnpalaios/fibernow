@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -100,6 +101,20 @@ public class TicketServiceImpl implements TicketService{
                 .map(DomainToDtoConverter::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<TicketDto> findTop10TicketsAfterDate(LocalDateTime dateTime) throws BusinessException {
+        if(dateTime == null) {
+            dateTime = LocalDateTime.now();
+        }
+        log.info("Trying to find the First Pending Tickets after {}", dateTime);
+        List<Ticket> tickets = ticketRepository.findTop10TicketsOrderedByDateTime(dateTime);
+        return tickets
+                .stream()
+                .map(DomainToDtoConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     @Transactional

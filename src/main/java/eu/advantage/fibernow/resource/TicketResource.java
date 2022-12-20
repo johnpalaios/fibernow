@@ -18,6 +18,7 @@ import jakarta.ws.rs.core.UriBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -39,6 +40,21 @@ public class TicketResource {
                     .build();
         }
 
+        @GET
+        @Path("/top10")
+        @RolesAllowed("ADMIN")
+        public Response getTopTen(@QueryParam("datetime") String dateTimeString) {
+            LocalDateTime dateTime;
+            if(dateTimeString != null)  {
+                dateTime = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            } else {
+                dateTime = null;
+            }
+            return Response
+                    .status(Response.Status.ACCEPTED)
+                    .entity(ApiResponse.builder().data(service.findTop10TicketsAfterDate(dateTime)).build())
+                    .build();
+        }
         @GET
         @RolesAllowed("ADMIN")
         public Response search(@QueryParam("customerId") Long customerId, @QueryParam("startDate") String startDateString,

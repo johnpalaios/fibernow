@@ -4,9 +4,11 @@ import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TicketRepository extends GenericRepository<Ticket, Long> {
     List<Ticket> findTicketsBetweenDates(LocalDate startDate, LocalDate endDate);
     List<Ticket> findTicketsByCustomer(Customer customer);
+    List<Ticket> findTop10TicketsOrderedByDateTime(LocalDateTime dateTime);
 }
