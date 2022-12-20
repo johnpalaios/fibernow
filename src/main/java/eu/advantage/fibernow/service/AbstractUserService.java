@@ -48,7 +48,8 @@ public abstract class AbstractUserService<T extends AbstractUser> implements Use
         if(userCredentialsList.size() == 0) return null;
         if(userCredentialsList.size() == 1) return userCredentialsList.get(0).getId();
         else {
-            throw new BusinessException(ExceptionStatus.BZ_ERROR_4004, username);
+            return userCredentialsList.get(0).getId();
+//            throw new BusinessException(ExceptionStatus.BZ_ERROR_4004, username);
         }
     }
 

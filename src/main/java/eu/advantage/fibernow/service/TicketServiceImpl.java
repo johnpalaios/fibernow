@@ -95,7 +95,12 @@ public class TicketServiceImpl implements TicketService{
                     .map(DomainToDtoConverter::toDto)
                     .collect(Collectors.toList());
         }
-        Customer customer = toDomain(customerService.findCustomer(customerId));
+        Customer customer;
+        try {
+            customer = toDomain(customerService.findCustomer(customerId));
+        } catch(Exception e) {
+            throw new BusinessException(BZ_ERROR_1001, customerId);
+        }
         List<Ticket> tickets = new ArrayList<>(customer.getTickets());
         tickets.forEach(ticket -> ticket.setCustomer(customer));
         if(startDate == null) {
@@ -135,6 +140,9 @@ public class TicketServiceImpl implements TicketService{
         if (found == null) {
             log.error("Failed to delete Ticket with Id = {} - This ticket does not exist", id);
             throw new BusinessException(BZ_ERROR_2001, id);
+        }
+        if(found.getTicketStatus() == TicketStatus.DELETED) {
+            throw new BusinessException(BZ_ERROR_2005,id);
         }
         //Soft Delete
         found.setTicketStatus(TicketStatus.DELETED);

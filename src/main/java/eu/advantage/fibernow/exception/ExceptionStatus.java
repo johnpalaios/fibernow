@@ -13,11 +13,13 @@ public enum ExceptionStatus {
     BZ_ERROR_1008("There are no Customers with [tin like: %s].", 1),
     BZ_ERROR_1009("There are no Customers with [email like: %s].", 1),
     BZ_ERROR_1010("There is already a Customer or an Admin with the [username=%s]", 1),
+    BZ_ERROR_1011("The Customer with [id=%s] that you are trying to delete is already deleted.", 1),
 
     BZ_ERROR_2001("Ticket with [id=%s] does not exist.", 1),
     BZ_ERROR_2002("Dates Not Valid : [Start Date = %s] and [End Date = %s]", 2),
     BZ_ERROR_2003("Ticket search with no parameters",0),
     BZ_ERROR_2004("Trying to add or update a Ticket with [ticket-id=%s] which belongs to a Deleted or Inactive Customer with [customer-id=%s]",2),
+    BZ_ERROR_2005("Ticket with [id=%s] is already deleted",1),
     BZ_ERROR_3001("Admin with [id=%s] does not exist.", 1),
     BZ_ERROR_3002("For Admin Insertion/Update : There is already a Customer or an Admin with the [username=%s]", 1),
 

@@ -45,7 +45,6 @@ public class CustomerServiceImpl extends AbstractUserService<Customer> implement
     public CustomerDto saveCustomer(CustomerDto dto) throws BusinessException{
         log.info("Called saveCustomer() with CustomerDto = {}", dto);
         Customer customer = toDomain(dto);
-
         if(checkIfUsernameExists(customer.getCredentials().getUsername(), customer.getId())) {
             throw new BusinessException(BZ_ERROR_1010, customer.getCredentials().getUsername());
         }
@@ -65,6 +64,7 @@ public class CustomerServiceImpl extends AbstractUserService<Customer> implement
                 .map(DomainToDtoConverter::toDto)
                 .collect(Collectors.toList());
         if (customer.getId() == null) {
+
             if (!tinCustomers.isEmpty()) {
                 throw new BusinessException(BZ_ERROR_1003, customer.getTin());
             }
@@ -173,7 +173,9 @@ public class CustomerServiceImpl extends AbstractUserService<Customer> implement
                 }
             });
         }
-
+        if(found.getUserStatus() == UserStatus.DELETED) {
+            throw new BusinessException(BZ_ERROR_1011,id);
+        }
         //Soft Delete
         found.setUserStatus(UserStatus.DELETED);
         customerRepository.update(found);
@@ -190,6 +192,7 @@ public class CustomerServiceImpl extends AbstractUserService<Customer> implement
         if(adminUserService.getUserByUsername(username) != null) return true;
         Customer customer = customerUserService.getUserByUsername(username);
         if(customer == null) return false;
+        log.info("This is customer.getId() : {} and parameter id : {}", customer.getId(), id);
         return !(customer.getId() == id);
     }
 }
