@@ -184,6 +184,15 @@ public class CustomerServiceImpl extends AbstractUserService<Customer> implement
     }
 
     @Override
+    public CustomerDto findCustomerByUsername(String username) {
+        Customer customer = customerUserService.getUserByUsername(username);
+        if(customer == null) {
+            throw new BusinessException(BZ_ERROR_1012,username);
+        }
+        return toDto(customer);
+    }
+
+    @Override
     public GenericRepository<Customer, Long> getRepository() {
         return customerRepository;
     }

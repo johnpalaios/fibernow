@@ -30,6 +30,15 @@ public class CustomerResource {
     }
 
     @GET
+    @RolesAllowed({"ADMIN", "CUSTOMER"})
+    public Response getByUsername(@QueryParam("username") String username) {
+        return Response
+                .status(Response.Status.ACCEPTED)
+                .entity(ApiResponse.builder().data(service.findCustomerByUsername(username)).build())
+                .build();
+    }
+
+    @GET
     @RolesAllowed("ADMIN")
     public Response search(@QueryParam("tin") String tin, @QueryParam("email") String email) {
         return Response
