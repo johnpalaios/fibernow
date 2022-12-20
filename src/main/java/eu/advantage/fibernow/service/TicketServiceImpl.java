@@ -7,6 +7,7 @@ import eu.advantage.fibernow.exception.BusinessException;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.TicketStatus;
+import eu.advantage.fibernow.model.enums.UserStatus;
 import eu.advantage.fibernow.repository.TicketRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -39,6 +40,9 @@ public class TicketServiceImpl implements TicketService{
         Ticket ticket = toDomain(dto);
         log.info("Called saveTicket() with TicketDto : {}", dto);
         Customer customer = toDomain(customerService.findCustomer(dto.getCustomerId()));
+        if(customer.getUserStatus() == UserStatus.DELETED || customer.getUserStatus() == UserStatus.INACTIVE) {
+            throw new BusinessException(BZ_ERROR_2004, ticket.getId(), customer.getId());
+        }
         ticket.setCustomer(customer);
         if (ticket.getId() == null) {
             if(ticket.getReceivedDate() == null) {

@@ -9,7 +9,7 @@ public enum ExceptionStatus {
     BZ_ERROR_1004("Can not create Customer with [email=%s]. There is already a Customer with the same email", 1),
     BZ_ERROR_1005("Can not update Customer with [tin=%s]. There is already a Customer with the same Tax Identification Number", 1),
     BZ_ERROR_1006("Can not update Customer with [email=%s]. There is already a Customer with the same email", 1),
-    BZ_ERROR_1007("Can not delete Customer with [id=%s]. They have open not completed / deleted tickets", 1),
+    BZ_ERROR_1007("Can not delete Customer with [id=%s]. They have open tickets (with status standby, pending, or in progress).", 1),
     BZ_ERROR_1008("There are no Customers with [tin like: %s].", 1),
     BZ_ERROR_1009("There are no Customers with [email like: %s].", 1),
     BZ_ERROR_1010("There is already a Customer or an Admin with the [username=%s]", 1),
@@ -17,6 +17,7 @@ public enum ExceptionStatus {
     BZ_ERROR_2001("Ticket with [id=%s] does not exist.", 1),
     BZ_ERROR_2002("Dates Not Valid : [Start Date = %s] and [End Date = %s]", 2),
     BZ_ERROR_2003("Ticket search with no parameters",0),
+    BZ_ERROR_2004("Trying to add or update a Ticket with [ticket-id=%s] which belongs to a Deleted or Inactive Customer with [customer-id=%s]",2),
     BZ_ERROR_3001("Admin with [id=%s] does not exist.", 1),
     BZ_ERROR_3002("For Admin Insertion/Update : There is already a Customer or an Admin with the [username=%s]", 1),
 
