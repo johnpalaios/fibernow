@@ -8,13 +8,10 @@ import eu.advantage.fibernow.exception.ExceptionStatus;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.TicketStatus;
-import eu.advantage.fibernow.repository.CustomerRepository;
 import eu.advantage.fibernow.repository.TicketRepository;
-import eu.advantage.fibernow.repository.TicketRepositoryImpl;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;

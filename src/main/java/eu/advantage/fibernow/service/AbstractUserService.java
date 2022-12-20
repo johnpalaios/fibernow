@@ -10,6 +10,8 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 @Stateless
 @Slf4j
 public abstract class AbstractUserService<T extends AbstractUser> implements UserService<T>{
@@ -42,11 +44,11 @@ public abstract class AbstractUserService<T extends AbstractUser> implements Use
     }
     private Long getIdByUsername(String username) {
         log.info("GetIdByUsername({})", username);
-        try{
-            UserCredentials credentials = userRepository.getCredentialsByUsername(username);
-            return credentials.getId();
-        } catch (Exception e){
-            throw new BusinessException(ExceptionStatus.BZ_ERROR_4001, username);
+        List<UserCredentials> userCredentialsList = userRepository.getCredentialsByUsername(username);
+        if(userCredentialsList.size() == 0) return null;
+        if(userCredentialsList.size() == 1) return userCredentialsList.get(0).getId();
+        else {
+            throw new BusinessException(ExceptionStatus.BZ_ERROR_4004, username);
         }
     }
 

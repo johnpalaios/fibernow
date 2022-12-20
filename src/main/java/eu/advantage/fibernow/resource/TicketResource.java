@@ -1,11 +1,7 @@
 package eu.advantage.fibernow.resource;
 
-import eu.advantage.fibernow.converter.DomainToDtoConverter;
-import eu.advantage.fibernow.converter.DtoToDomainConverter;
 import eu.advantage.fibernow.dto.TicketDto;
-import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.service.TicketService;
-import static eu.advantage.fibernow.util.rest.ResponseUtils.*;
 
 import eu.advantage.fibernow.util.rest.ApiResponse;
 import jakarta.annotation.security.RolesAllowed;

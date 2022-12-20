@@ -1,10 +1,7 @@
 package eu.advantage.fibernow.resource;
 
 import eu.advantage.fibernow.dto.UserCredentialsDto;
-import eu.advantage.fibernow.model.Admin;
-import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.service.LoginService;
-import eu.advantage.fibernow.service.UserService;
 import eu.advantage.fibernow.util.rest.ApiResponse;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;

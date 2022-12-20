@@ -8,17 +8,19 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
+import java.util.List;
+
 @Stateless
 public class UserRepositoryImpl implements UserRepository {
     @Inject
     EntityManager em;
 
     @Override
-    public UserCredentials getCredentialsByUsername(String username) {
+    public List<UserCredentials> getCredentialsByUsername(String username) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<UserCredentials> criteriaQuery = builder.createQuery(UserCredentials.class);
         Root<UserCredentials> root = criteriaQuery.from(UserCredentials.class);
         criteriaQuery.select(root).where(builder.equal(root.get("username"), username));
-        return em.createQuery(criteriaQuery).getSingleResult();
+        return em.createQuery(criteriaQuery).getResultList();
     }
 }

@@ -2,8 +2,8 @@ package eu.advantage.fibernow.service;
 
 import eu.advantage.fibernow.converter.DomainToDtoConverter;
 import eu.advantage.fibernow.dto.CustomerDto;
-import eu.advantage.fibernow.dto.TicketDto;
 import eu.advantage.fibernow.exception.BusinessException;
+import eu.advantage.fibernow.model.Admin;
 import eu.advantage.fibernow.model.Customer;
 import eu.advantage.fibernow.model.Ticket;
 import eu.advantage.fibernow.model.enums.UserStatus;
@@ -35,12 +35,20 @@ public class CustomerServiceImpl extends AbstractUserService<Customer> implement
 
     @Inject
     private TicketRepository ticketRepository;
+    @Inject
+    private UserService<Admin> adminUserService;
+    @Inject
+    private UserService<Customer> customerUserService;
 
     @Override
     @Transactional
     public CustomerDto saveCustomer(CustomerDto dto) throws BusinessException{
         log.info("Called saveCustomer() with CustomerDto = {}", dto);
         Customer customer = toDomain(dto);
+
+        if(checkIfUsernameExists(customer.getCredentials().getUsername(), customer.getId())) {
+            throw new BusinessException(BZ_ERROR_1010, customer.getCredentials().getUsername());
+        }
         if (customer.getTickets() == null) {
             customer.setTickets(new HashSet<>());
         }
@@ -176,5 +184,12 @@ public class CustomerServiceImpl extends AbstractUserService<Customer> implement
     @Override
     public GenericRepository<Customer, Long> getRepository() {
         return customerRepository;
+    }
+
+    private boolean checkIfUsernameExists(String username, Long id) {
+        if(adminUserService.getUserByUsername(username) != null) return true;
+        Customer customer = customerUserService.getUserByUsername(username);
+        if(customer == null) return false;
+        return !(customer.getId() == id);
     }
 }

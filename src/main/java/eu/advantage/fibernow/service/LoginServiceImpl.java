@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService{
             return "CUSTOMER";
         } else {
             log.info("User : {} is neither a Customer nor an Admin", userCredentialsDto);
-            throw new BusinessException(BZ_ERROR_4003);
+            throw new BusinessException(BZ_ERROR_4003,username);
         }
     }
 }
