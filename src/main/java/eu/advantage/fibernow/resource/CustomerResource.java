@@ -30,8 +30,9 @@ public class CustomerResource {
     }
 
     @GET
+    @Path("/username/{username}")
     @RolesAllowed({"ADMIN", "CUSTOMER"})
-    public Response getByUsername(@QueryParam("username") String username) {
+    public Response getByUsername(@PathParam("username") String username) {
         return Response
                 .status(Response.Status.ACCEPTED)
                 .entity(ApiResponse.builder().data(service.findCustomerByUsername(username)).build())
