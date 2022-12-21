@@ -30,8 +30,6 @@ public class Customer extends AbstractUser implements Serializable {
     private Set<String> phoneNumber = new HashSet<>();
     private String email;
     @OneToMany(
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
             mappedBy = "customer"
     )
     @ToString.Exclude

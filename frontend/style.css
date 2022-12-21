@@ -1,0 +1,431 @@
+:root {
+    --primary: #BE3455;
+    --secondary: #6667AB;
+    --bg-primary: #090921;
+    --bg-secondary: #eaeafe;
+
+
+    font-size: 18px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding: 1em 0;
+    background: var(--bg-primary);
+}
+
+.logo {
+    max-width: 300px;
+    max-height: 100px;
+    display: flex;
+    align-items: center;
+    margin-inline: 1em;
+}
+
+.nav-title {
+    color: var(--primary);
+    font-size: 1.3em;
+    padding: 10px;
+    margin-inline-end: 2%;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-inline: 2em;
+}
+
+.sign-out {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 1em;
+}
+
+#sign-out-link {
+    text-decoration: none;
+    margin-inline: 1em;
+    color: var(--secondary);
+}
+
+#sign-out-link:hover{
+    filter: brightness(150%);
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--primary);
+    margin: 1em;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    filter: brightness(150%);
+}
+
+.nav-active {
+    background: var(--primary);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.nav-active:hover {
+    cursor: default;
+    filter: brightness(100%);
+}
+
+main {
+    height: 80vh;
+    border: 1px solid black;
+    background: var(--bg-secondary);
+}
+
+#loginForm {
+    margin: 3em auto;
+    padding-block: 20px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+#formHeader {
+    color: var(--secondary);
+    margin: 5px;
+}
+.checkbox{
+    margin: 10px;
+}
+
+.form-control {
+    border-radius: 5px;
+    border-width: 2px;
+    margin-top: 5px;
+    padding: 2px;
+    box-shadow: 1px 1px 1px 1px lightgray;
+}
+
+/* Ticket */
+.tickets-container {
+    height: 70vh;
+    width: 90%;
+    margin: 1em auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.customers-container {
+    height: 70vh;
+    width: 90%;
+    margin: 1em auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.pending-container {
+    height: 70vh;
+    width: 90%;
+    margin: 1em auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.table-input {
+    font-size: 12px;
+    background: none;
+    border: none;
+    text-align: center;
+    max-width: 120px;
+}
+
+.table-td{
+    max-width: fit-content;
+    margin: 0;
+    padding: 0;
+
+}
+
+#pendingTickets {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+#customerSearch {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+#ticketSearch {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+#customerSearchInputs > * {
+    font-size: 0.8em;
+}
+#ticketSearchInputs > * {
+    font-size: 0.8em;
+}
+
+.ticket-list {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ticket {
+    font-size: 0.8em;
+    padding: 5px;
+    background-color: var(--bg-secondary);
+    border-radius: 10px;
+}
+
+.ticket > label {
+    font-size: 1em;
+}
+
+.ticket > button {
+    font-size: 1em;
+}
+
+.ticket-input {
+    display: inline-block;
+    width: 100px;
+    font-size: 1em;
+    border: none;
+    background: none;
+}
+
+.ticket-buttons {
+    font-size: 1em;
+    margin: 2px;
+}
+
+[id^=ticketId] {
+    width: 3ch;
+}
+
+[id^=ticketType] {
+    width: 12ch;
+}
+
+[id^=ticketCost] {
+    width: 5ch;
+}
+
+/* Utilities */
+
+ul {
+    list-style: none;
+}
+
+.sr-only {
+    display: none;
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: white;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px lightgray;
+}
+
+.btn-secondary:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+.container-header {
+    color: var(--secondary);
+    margin: 5px;
+}
+
+.align-content-end {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    justify-content: end;
+}
+
+.margin-inline-2 {
+    margin-inline: 2px;
+}
+
+
+/* Modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+/* Details */
+.form-columns {
+    display: flex;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    margin : 1em;
+}
+#detail-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh;
+    
+}
+#detail-form {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    height : 100%;
+
+}
+.editDetailsButton {
+    margin : 1em;
+    
+}
+/* Modal Content/Box */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 10px solid #888;
+    border-radius: 10px;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+/* Modal Header */
+.modal-header {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+}
+
+.modal-title {
+    color: var(--secondary);
+    margin: auto;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 2px 16px;
+}
+
+#ticket-create {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* Table */
+
+.table {
+    font-size: 0.5rem;
+    width: 95%;
+    height: 75%;
+}
+
+#searchCustomersDetails{
+    
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+td, th {
+    font-size: 0.6em;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: var(--bg-secondary);
+}

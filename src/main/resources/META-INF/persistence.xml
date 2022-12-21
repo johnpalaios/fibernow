@@ -12,7 +12,7 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.globally_quoted_identifiers" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
         </properties>
     </persistence-unit>
 </persistence>
