@@ -31,7 +31,7 @@ Implemented a login functionality
 ## Technologies Used
 ### Frontend
 * Javascript ES6
-* Bootstrap CSS
+* CSS & HTML
 * Figma (for the prototypes)
 * Canva for the logo
 
